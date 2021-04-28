@@ -20,6 +20,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -31,7 +32,8 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     SharedPreferences sharedPreferences;
     MediaPlayer mp;
     ImageView selected, imageRoulette;
-
+    String [] sectors ={"Programación Web", "Comodín", "Hardware", "Entornos","Bases de Datos","Programación", "Sistemas Operativos"};
+    TextView textView;
     Button b_start;
 
     @Override
@@ -39,10 +41,10 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         getWindow().addFlags(1024);
         requestWindowFeature(1);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ruleta);
 
         b_start = (Button)findViewById(R.id.buttonStart);
-
+        textView = findViewById(R.id.txtv);
         selected = (ImageView)findViewById(R.id.imageSelected);
         imageRoulette = (ImageView)findViewById(R.id.rouletteImage);
 
@@ -64,13 +66,13 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         @SuppressLint("WrongConstant") Toast toast = Toast.makeText(this, " " + String.valueOf((int)(((double)this.intNumber)
                 - Math.floor(((double)this.IngDegrees) / (360.0d / ((double)this.intNumber))))) + "  ",0);
         toast.setGravity(49,0,0);
-        toast.show();
+        //toast.show();
         this.blnButtonRotation = true;
         b_start.setGravity(View.VISIBLE);
+        CalculatePoint(IngDegrees);
     }
     @Override
     public void onAnimationRepeat(Animation animation){
-
     }
 
     public void onClickButtonRotation (View v){
@@ -87,5 +89,18 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
             imageRoulette.startAnimation(rotateAnimation);
         }
     }
-
+    public void CalculatePoint(long degree){
+        double initialPoint = 0;
+        double endPoint=51.42857142857143;
+        int i=0;
+        String res = null;
+        do{
+            if(degree > initialPoint && degree < endPoint){
+                res=sectors[i];
+            }
+            initialPoint+=51.42857142857143; endPoint+=51.42857142857143;
+            i++;
+        }while(res == null);
+        textView.setText(res);
+    }
 }
