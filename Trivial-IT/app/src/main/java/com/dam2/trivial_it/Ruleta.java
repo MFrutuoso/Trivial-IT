@@ -97,6 +97,8 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         do{
             if(degree > initialPoint && degree < endPoint){
                 res=sectors[i];
+
+                //Intents a ventana con pregunta sector[i];
             }
             initialPoint+=51.42857142857143; endPoint+=51.42857142857143;
             i++;
