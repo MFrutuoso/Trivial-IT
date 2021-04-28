@@ -2,13 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    tools:context=".Ruleta">
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
+        android:animationCache="true"
+        android:background="@drawable/fondo"
+        android:baselineAligned="false"
         tools:ignore="UselessParent">
 
         <ImageView
@@ -20,39 +23,182 @@
             android:contentDescription="@string/ruleta"
             android:src="@drawable/ruleta" />
 
-        <Button
-            android:id="@+id/buttonStart"
-            android:layout_width="45dp"
-            android:layout_height="42dp"
-            android:layout_alignTop="@+id/rouletteImage"
-            android:layout_alignEnd="@+id/rouletteImage"
-            android:layout_alignBottom="@+id/rouletteImage"
-            android:layout_marginTop="185dp"
-            android:layout_marginEnd="159dp"
-            android:layout_marginBottom="180dp"
-            android:background="@drawable/girar"
-            android:onClick="onClickButtonRotation"
-            tools:ignore="OnClick" />
-
         <ImageView
             android:id="@+id/imageSelected"
             android:layout_width="39dp"
             android:layout_height="37dp"
             android:layout_above="@+id/rouletteImage"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="512dp"
+            android:layout_marginEnd="174dp"
+            android:layout_marginBottom="492dp"
             android:background="@drawable/marcador"
             android:contentDescription="@string/start"
             android:src="@drawable/marcador" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="277dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/progooff" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/progooff" />
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/hwooff" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="308dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/hwooff" />
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/weboof" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/weboof" />
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/siooff" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="340dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/siooff" />
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/dboff" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="370dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/dboff" />
+
+
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="135dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/entornosoof" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="246dp"
+            android:layout_marginTop="78dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/entornosoof" />
+
+        <Button
+            android:id="@+id/buttonStart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/rouletteImage"
+            android:layout_alignEnd="@+id/rouletteImage"
+            android:layout_alignBottom="@+id/rouletteImage"
+            android:layout_marginTop="185dp"
+            android:layout_marginEnd="156dp"
+            android:layout_marginBottom="172dp"
+            android:background="@drawable/girar"
+            android:onClick="onClickButtonRotation"
+            tools:ignore="OnClick" />
+
         <TextView
             android:id="@+id/txtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
-            android:textSize="32sp"
             android:layout_centerHorizontal="true"
-            android:text=""/>
+            android:layout_marginTop="15dp"
+            android:text=""
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/jugador_1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="186dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="227dp"
+            android:layout_marginTop="29dp"
+            android:text="@string/jugador_2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+
     </RelativeLayout>
 </LinearLayout>

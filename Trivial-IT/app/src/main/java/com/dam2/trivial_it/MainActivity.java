@@ -18,4 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Intent IRuleta = new Intent(this, Ruleta.class);
         startActivity(IRuleta);
     }
+
+    public void onClickButtonRotation(View view) {
+    }
 }
