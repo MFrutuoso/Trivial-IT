@@ -1,10 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Trivial-IT</string>
     <string name="ruleta">ruleta</string>
     <string name="start">start</string>
     <string name="ruletaa">RULETA</string>
-    <string name="todo">TODO</string>
     <string name="jugador_1">Jugador 1</string>
     <string name="jugador_2">Jugador 2</string>
-    <string name="todoo">TODO</string>
+    <string name="todo">selector</string>
+    <string name="nueva_partida">NUEVA PARTIDA</string>
+    <string name="partidas_activas">PARTIDAS ACTIVAS</string>
+    <string name="ajustes">AJUSTES</string>
+    <string name="estad_sticas">ESTADÍSTICAS</string>
+    <string name="LOGGO">TODO</string>
+    <string name="principal">principal</string>
 </resources>

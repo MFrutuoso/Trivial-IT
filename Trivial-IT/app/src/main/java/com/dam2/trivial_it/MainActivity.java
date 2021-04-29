@@ -14,11 +14,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void intentRuleta(View view){
-        Intent IRuleta = new Intent(this, Ruleta.class);
-        startActivity(IRuleta);
+
+
+    public void intentPrincipal(View view){
+        Intent IPrincipal = new Intent(this, Principal.class);
+        startActivity(IPrincipal);
     }
 
-    public void onClickButtonRotation(View view) {
-    }
 }
