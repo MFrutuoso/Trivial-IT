@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -152,6 +153,7 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/entornosoof" />
 
+
         <Button
             android:id="@+id/buttonStart"
             android:layout_width="50dp"
@@ -176,27 +178,51 @@
             android:text=""
             android:textSize="32sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="246dp"
+            android:layout_height="57dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="27dp"
-            android:text="@string/jugador_1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:layout_marginStart="-45dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/jugador"
+            android:contentDescription="@string/j2" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="246dp"
+            android:layout_height="57dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="252dp"
+            android:layout_marginTop="11dp"
+            android:contentDescription="@string/j2"
+            app:srcCompat="@drawable/jugador" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="225dp"
-            android:layout_marginTop="26dp"
-            android:text="@string/jugador_2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="21dp"
+            android:text="@string/jugador_1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="275dp"
+            android:layout_marginTop="21dp"
+            android:text="Jugador 2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="25sp" />
 
 
     </RelativeLayout>
