@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Trivial-IT</string>
+    <string name="ruleta">ruletaa</string>
+    <string name="start">start</string>
+    <string name="ruletaa">RULETA</string>
+    <string name="jugador_1">Jugador 1</string>
+    <string name="jugadorr_2">Jugador 2</string>
+    <string name="todo">selector</string>
+    <string name="nueva_partida">NUEVA PARTIDA</string>
+    <string name="partidas_activas">PARTIDAS ACTIVAS</string>
+    <string name="ajustes">AJUSTES</string>
+    <string name="estad_sticas">ESTADÍSTICAS</string>
+    <string name="LOGGO">TODO</string>
+    <string name="principal">principal</string>
+    <string name="j1">TODO</string>
+    <string name="j2">TODO</string>
+    <string name="jugador_2">Jugador_2</string>
+    <string name="mail">TODO</string>
+    <string name="pass">TODO</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="email">Email</string>
 </resources>
