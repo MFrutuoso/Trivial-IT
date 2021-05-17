@@ -17,4 +17,8 @@ public class Principal extends AppCompatActivity {
         Intent IRuleta = new Intent(this, Ruleta.class);
         startActivity(IRuleta);
     }
+    public void intentAjustes(View view){
+        Intent IAjustes = new Intent(this, Ajustes.class);
+        startActivity(IAjustes);
+    }
 }
