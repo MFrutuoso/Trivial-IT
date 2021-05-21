@@ -19,4 +19,8 @@
     <string name="pass">TODO</string>
     <string name="contrase_a">Contraseña</string>
     <string name="email">Email</string>
+    <string name="logo">TODO</string>
+    <string name="jugador2">Jugador 2</string>
+    <string name="musica">Música</string>
+    <string name="ajustess">Ajustes</string>
 </resources>
