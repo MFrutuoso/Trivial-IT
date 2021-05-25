@@ -13,11 +13,11 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
     }
-    public void intentRuleta(View view){
-        Intent IRuleta = new Intent(this, Ruleta.class);
+    public void btnNuevaPartida(View view){
+        Intent IRuleta = new Intent(this, ModoDeJuego.class);
         startActivity(IRuleta);
     }
-    public void intentAjustes(View view){
+    public void btnAjustes(View view){
         Intent IAjustes = new Intent(this, Ajustes.class);
         startActivity(IAjustes);
     }

@@ -1,115 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C2E2E"
-    android:onClick="intentPrincipal"
-    tools:context=".MainActivity">
+    android:background="#000000"
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="301dp"
-        android:layout_height="264dp"
-        android:contentDescription="@string/LOGGO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.159"
-        app:srcCompat="@drawable/logo"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/imageView13"
+        android:layout_width="269dp"
+        android:layout_height="206dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="72dp"
+        android:contentDescription="@string/logo"
+        app:srcCompat="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="286dp"
-        android:layout_height="66dp"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/imageView18"
+        android:layout_width="match_parent"
+        android:layout_height="199dp"
+        android:layout_below="@+id/imageView13"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="207dp"
+        android:src="@drawable/gif" />
 
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textColorLink="#FFFFFF"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="41dp"
-        android:layout_height="43dp"
-        android:background="@drawable/login"
-        android:onClick="intentPrincipal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="287dp"
-        android:layout_height="69dp"
-        android:autofillHints=""
-        android:ems="9"
-        android:fontFamily="monospace"
-        android:hint="@string/contrase_a"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textColorLink="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="47dp"
-        android:layout_height="48dp"
-        android:background="@drawable/tw"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.725"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="47dp"
-        android:layout_height="48dp"
-        android:background="@drawable/gp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.282"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.889" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="47dp"
-        android:layout_height="48dp"
-        android:background="@drawable/fb"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

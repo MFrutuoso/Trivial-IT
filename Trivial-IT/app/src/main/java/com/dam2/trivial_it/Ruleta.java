@@ -2,6 +2,7 @@ package com.dam2.trivial_it;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -32,10 +34,12 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     SharedPreferences sharedPreferences;
     MediaPlayer mp;
     ImageView selected, imageRoulette;
-    String [] sectors ={"Programación Web", "Comodín", "Hardware", "Entornos","Bases de Datos","Programación", "Sistemas Operativos"};
+    String [] tablaCatArray = {"programacionweb", "Comodín", "hardware", "entornosdedesarrollo", "basededatos", "programacion", "sistemasinformaticos" };
+    String [] sectors ={"Programación Web", "Comodín", "Hardware", "Entornos","Bases de Datos","Programación", "Sistemas Informáticos"};
     TextView textView;
     Button b_start;
-
+    String res = null;
+    String tablaCat="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().addFlags(1024);
@@ -88,21 +92,35 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
             imageRoulette.setAnimation(rotateAnimation);
             imageRoulette.startAnimation(rotateAnimation);
         }
+
     }
+
+    private void iniciarPregunta() {
+        Intent i = new Intent(this, Quiz.class);
+        Log.e("iniciarPregunta()putExt", res); //Comprobamos que el parametro no va vacio. PRESCINDIBLE
+        i.putExtra("categoria",res); //Titulo de a categoría
+        i.putExtra("tablaCat" ,tablaCat); //Nombre de la tabla que consultaremos en la DB
+        i.putExtra("intentPractica",false);
+        startActivity(i);
+    }
+
     public void CalculatePoint(long degree){
         double initialPoint = 0;
         double endPoint=51.42857142857143;
         int i=0;
-        String res = null;
+
         do{
             if(degree > initialPoint && degree < endPoint){
-                res=sectors[i];
+                res=sectors[i]; //res = Categoría resultante de la Ruleta
+                tablaCat = tablaCatArray[i]; //Guardamos el nombre de la tabla de la base de datos
 
-                //Intents a ventana con pregunta sector[i];
+                if(sectors[i] != "Comodín")
+                    iniciarPregunta(); //Intents a ventana con pregunta sector[i];
+                else {return;} //"Comodín" -> Iniciamos emergente preguntando categoría a elegir
             }
             initialPoint+=51.42857142857143; endPoint+=51.42857142857143;
             i++;
         }while(res == null);
-        textView.setText(res);
+        textView.setText(res); //TextView prescindible, muestra categoría elegida.
     }
 }
