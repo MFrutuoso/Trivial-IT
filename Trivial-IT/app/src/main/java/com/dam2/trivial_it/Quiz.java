@@ -1,7 +1,5 @@
 package com.dam2.trivial_it;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,7 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,22 +21,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Quiz extends AppCompatActivity {
 
+    //Declaración de variables y objetos
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador;
     Button btnSiguiente, btnAbandonar;
+
     RequestQueue requestQueue;
     String[][] qPractica = new String[11][7];
     int qCont=-1;
-    Boolean intentPractica=null;
-    int numAleatorio=-1;
+
+    Boolean intentPractica=null; //Para comprobar el modo de juego
+    int numAleatorio=-1; //Variable usada para generar un numero aleatorio en varias ocasiones
+
+    String respuestaCorrecta=""; //Guardaremos la respuesta correcta para realizar la valdiación
+    ArrayList<String> listaOpciones = new ArrayList<String>(); //Guardamos las respuestas a mostrar (4 opciones)
+    String [] preguntaCompleta = new String[7]; //Guardamos la preugnta integra desde la base de datos
+    boolean respondido=false; //Variable para saber si ya ha pulsado una de las respuestas
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        //Enlazamos componentes del XML con variables
         btnSiguiente = findViewById(R.id.btn_siguiente);
         btnAbandonar = findViewById(R.id.btn_abandonar);
         tvCategoria = findViewById(R.id.tv_categoria);
@@ -47,6 +57,8 @@ public class Quiz extends AppCompatActivity {
         tvOpcion3 = findViewById(R.id.tv_opcion3);
         tvOpcion4 = findViewById(R.id.tv_opcion4);
         tvContador = findViewById(R.id.tv_contador);
+
+        listaOpciones.ensureCapacity(4); //Le indicamos el numero de posiciones para ahorrar recursos
 
         String categoria="";
         String tablaCat="";
@@ -58,20 +70,23 @@ public class Quiz extends AppCompatActivity {
             tablaCat = extras.getString("tablaCat");
             tvCategoria.setText(categoria);
             intentPractica = extras.getBoolean("intentPractica");
-            Log.e("Bundle extras if", categoria);
-            Log.e("intentPractica", ""+intentPractica);
+
             if(!intentPractica) btnSiguiente.setText("Continuar");
 
         }else Log.e("Bundle extras", "null");
 
-        addIndicesqPractica(); //Añadimos los indices al array para el modo practica
+        if (intentPractica){
+            addIndicesqPractica(); //Añadimos los indices al array para el modo practica
+        }
 
         String url = Locale.getDefault().getLanguage(); //Obtenemos el lenguaje del usuario
 
+        //Comprobamos si el usuario navega en inglés para añadir el idioma a las tablas que se buscaran en la DB
         if(url.equalsIgnoreCase("en")) url = "http://redcapcrd.es/trivialit/find.php?id="+tablaCat+"en";
         else url = "http://redcapcrd.es/trivialit/find.php?id="+tablaCat;
 
-        buscarDatos(url);
+        buscarDatos(url); //Llamamos al método de la consulta a la DB
+
         qCont=0;
 
     }
@@ -119,8 +134,7 @@ public class Quiz extends AppCompatActivity {
                         Toast.makeText(Quiz.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 }
-                Log.e("mostrarPregunta","OK");
-                mostrarPregunta();
+                mostrarPregunta(); //Mostramos los datos en la interfaz
             }
         }, new Response.ErrorListener() {
             @Override
@@ -130,7 +144,7 @@ public class Quiz extends AppCompatActivity {
             }
         }
         );
-        requestQueue= Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
 
@@ -149,38 +163,22 @@ public class Quiz extends AppCompatActivity {
         }
 
         else{ //quizRuleta
-            tvPregunta.setText(qPractica[1][1]);
-            tvOpcion1.setText(qPractica[1][2]);
-            tvOpcion2.setText(qPractica[1][3]);
-            tvOpcion3.setText(qPractica[1][4]);
-            tvOpcion4.setText(qPractica[1][5]);
+            tvPregunta.setText(preguntaCompleta[1]);
+            mostarOpcionesAleatorias();
         }
     }
 
     public void btnNext(View view) {
-        if(qCont<=10){
-            if (qCont==9) btnSiguiente.setEnabled(false);
-            mostrarPregunta();
-        }
+//        if(qCont<=10){
+//            if (qCont==9) btnSiguiente.setEnabled(false);
+//            mostrarPregunta();
+//        }
     }
     public void btnAtras(View view) {
         if (qCont==10) btnSiguiente.setEnabled(true);
         qCont-=2;
         Intent i = new Intent(this, Ruleta.class);
         startActivity(i);
-    }
-
-    //Metodo de prueba - PRESCINDIBLE
-    public void mostrarArray(){
-        String row=""+qPractica.length; // 11
-        String col=""+qPractica[0].length; // 7
-        Log.e("length", "row="+row+" col="+col);
-
-        for(int i=0; i<qPractica.length; i++){
-            for(int j=0; j<qPractica[i].length; j++){
-                Log.e("qPractica["+i+"]["+j+"]",""+qPractica[i][j]);
-            }
-        }
     }
 
     //Metodo si venimos del activity de practica
@@ -195,53 +193,107 @@ public class Quiz extends AppCompatActivity {
     }
 
     public void quizRuleta(JSONObject jsonObject) throws JSONException {
-        qPractica[1][0] = jsonObject.getString("id");
-        qPractica[1][1] = jsonObject.getString("pregunta");
-        qPractica[1][2] = jsonObject.getString("respuesta");
-        qPractica[1][3] = jsonObject.getString("incorrecta1");
-        qPractica[1][4] = jsonObject.getString("incorrecta2");
-        qPractica[1][5] = jsonObject.getString("incorrecta3");
-        qPractica[1][6] = jsonObject.getString("categoria");
+
+        //Obtenemos los campos de la Base de Datos
+        preguntaCompleta[0] = jsonObject.getString("id");
+        preguntaCompleta[1] = jsonObject.getString("pregunta");
+        preguntaCompleta[2] = jsonObject.getString("respuesta");
+        preguntaCompleta[3] = jsonObject.getString("incorrecta1");
+        preguntaCompleta[4] = jsonObject.getString("incorrecta2");
+        preguntaCompleta[5] = jsonObject.getString("incorrecta3");
+        preguntaCompleta[6] = jsonObject.getString("categoria");
+
+        //Añadimos a la lista las opciones para generar el orden aleatorio
+        listaOpciones.add(preguntaCompleta[2]);
+        listaOpciones.add(preguntaCompleta[3]);
+        listaOpciones.add(preguntaCompleta[4]);
+        listaOpciones.add(preguntaCompleta[5]);
+
+        respuestaCorrecta = preguntaCompleta[2]; //Guardamos la respuesta correcta para su posterior validación
+
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        View decorView = getWindow().getDecorView();
-        // Hide both the navigation bar and the status bar.
-        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
-        // a general rule, you should design your app to hide the status bar whenever you
-        // hide the navigation bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-    }
-
+    //onClick de las opciones/respuestas a la pregunta
     public void validarOpciones(View view) {
         int id = view.getId();
 
         switch (id){
-            case R.id.tv_opcion1: //Base de datos
-                //if(tvOpcion1.getText().toString().equals(qPractica[1][2]))
-                    tvOpcion1.setBackgroundColor(Color.parseColor("#63F311"));
+            case R.id.tv_opcion1:
+                if (!respondido){ //Si no ha seleccionado ninguna respuesta antes...
+                    if(tvOpcion1.getText().toString().equals(respuestaCorrecta)){
+                        tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
+                    }
+                    else{
+                        tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
+                        if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    }
+                    respondido=true;
+                }
                 break;
-            case R.id.tv_opcion2: //Programación
-                tvOpcion2.setBackgroundColor(Color.parseColor("#F32611"));
-                tvOpcion1.setBackgroundColor(Color.parseColor("#63F311"));
+            case R.id.tv_opcion2:
+                if (!respondido){
+                    if(tvOpcion2.getText().toString().equals(respuestaCorrecta)){
+                        tvOpcion2.setBackgroundColor(Color.parseColor("#63F311"));
+                    }
+                    else{
+                        tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    }
+                    respondido=true;
+                }
                 break;
-            case R.id.tv_opcion3: //Programación Web
-                tvOpcion3.setBackgroundColor(Color.parseColor("#F32611"));
-                tvOpcion1.setBackgroundColor(Color.parseColor("#63F311"));
+            case R.id.tv_opcion3:
+                if (!respondido){
+                    if(tvOpcion3.getText().toString().equals(respuestaCorrecta)){
+                        tvOpcion3.setBackgroundColor(Color.parseColor("#63F311"));
+                    }
+                    else{
+                        tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    }
+                    respondido=true;
+                }
                 break;
-            case R.id.tv_opcion4: //Sistemas informáticos
-                tvOpcion4.setBackgroundColor(Color.parseColor("#F32611"));
-                tvOpcion1.setBackgroundColor(Color.parseColor("#63F311"));
+            case R.id.tv_opcion4:
+                if (!respondido){
+                    if(tvOpcion4.getText().toString().equals(respuestaCorrecta)){
+                        tvOpcion4.setBackgroundColor(Color.parseColor("#63F311"));
+                    }
+                    else{
+                        tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        else tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    }
+                    respondido=true;
+                }
                 break;
         }
+    }
 
-        tvOpcion1.setText(qPractica[1][2]);
-        tvOpcion2.setText(qPractica[1][3]);
-        tvOpcion3.setText(qPractica[1][4]);
-        tvOpcion4.setText(qPractica[1][5]);
+    public void mostarOpcionesAleatorias(){
+
+        numAleatorio = (int) Math.floor(Math.random()*((listaOpciones.size()-1)-0+1)+0);  // Genera un numero aleatorio entre 0 y el tamaño del ArrayList.
+        //Log.e("NumAleatorioLista", numAleatorio+"");
+        tvOpcion1.setText(listaOpciones.get(numAleatorio)); //Mostramos en la 1a opción la posición aleatoria del ArrayList
+        listaOpciones.remove(numAleatorio); //Eliminamos de la lista la opción ya mostrada en TextView
+
+        numAleatorio = (int) Math.floor(Math.random()*((listaOpciones.size()-1)-0+1)+0);
+        tvOpcion2.setText(listaOpciones.get(numAleatorio));
+        listaOpciones.remove(numAleatorio);
+
+        numAleatorio = (int) Math.floor(Math.random()*((listaOpciones.size()-1)-0+1)+0);
+        tvOpcion3.setText(listaOpciones.get(numAleatorio));
+        listaOpciones.remove(numAleatorio);
+
+        tvOpcion4.setText(listaOpciones.get(0));
+        listaOpciones.remove(0);
+
     }
 }
