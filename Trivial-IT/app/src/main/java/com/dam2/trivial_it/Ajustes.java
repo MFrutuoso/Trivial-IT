@@ -45,7 +45,7 @@ public class Ajustes extends AppCompatActivity {
     public void encenderMusica(){
         if(Login.encendida==false){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
-            this.startService(miReproductor);
+            startService(miReproductor);
             Login.encendida = true;
         }
     }

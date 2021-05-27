@@ -2,6 +2,7 @@ package com.dam2.trivial_it;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,24 +12,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -49,9 +42,9 @@ public class Quiz extends AppCompatActivity {
     ArrayList<String> listaOpciones = new ArrayList<String>(); //Guardamos las respuestas a mostrar (4 opciones)
     String [] preguntaCompleta = new String[7]; //Guardamos la preugnta integra desde la base de datos
     boolean respondido=false; //Variable para saber si ya ha pulsado una de las respuestas
-  
-    MediaPlayer error; //Sonido para opción erronea
-    MediaPlayer correcto; //Sonido para opción correcta
+
+	MediaPlayer error;
+    MediaPlayer correcto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +54,6 @@ public class Quiz extends AppCompatActivity {
         //Enlazamos componentes del XML con variables
         //btnSiguiente = findViewById(R.id.btn_siguiente);
         //btnAbandonar = findViewById(R.id.btn_abandonar);
-
         tvCategoria = findViewById(R.id.tv_categoria);
         tvPregunta = findViewById(R.id.tv_pregunta);
         tvOpcion1 = findViewById(R.id.tv_opcion1);
@@ -69,7 +61,7 @@ public class Quiz extends AppCompatActivity {
         tvOpcion3 = findViewById(R.id.tv_opcion3);
         tvOpcion4 = findViewById(R.id.tv_opcion4);
         tvContador = findViewById(R.id.tv_contador);
-        error = MediaPlayer.create(this, R.raw.error);
+		error = MediaPlayer.create(this, R.raw.error);
         correcto = MediaPlayer.create(this, R.raw.acierto);
 
         listaOpciones.ensureCapacity(4); //Le indicamos el numero de posiciones para ahorrar recursos
@@ -85,7 +77,7 @@ public class Quiz extends AppCompatActivity {
             tvCategoria.setText(categoria);
             intentPractica = extras.getBoolean("intentPractica");
 
-            if(!intentPractica) btnSiguiente.setText("Continuar");
+            //if(!intentPractica) btnSiguiente.setText("Continuar");
 
         }else Log.e("Bundle extras", "null");
 
@@ -189,7 +181,7 @@ public class Quiz extends AppCompatActivity {
 //        }
     }
     public void btnAtras(View view) {
-        if (qCont==10) btnSiguiente.setEnabled(true);
+        //if (qCont==10) btnSiguiente.setEnabled(true);
         qCont-=2;
         Intent i = new Intent(this, Ruleta.class);
         startActivity(i);
@@ -224,6 +216,7 @@ public class Quiz extends AppCompatActivity {
         listaOpciones.add(preguntaCompleta[5]);
 
         respuestaCorrecta = preguntaCompleta[2]; //Guardamos la respuesta correcta para su posterior validación
+
     }
 
     //onClick de las opciones/respuestas a la pregunta
@@ -248,7 +241,7 @@ public class Quiz extends AppCompatActivity {
             case R.id.tv_opcion2:
                 if (!respondido){
                     if(tvOpcion2.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion2.setBackgroundColor(Color.parseColor("#63F311"));
+                        tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     else{
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
@@ -262,7 +255,7 @@ public class Quiz extends AppCompatActivity {
             case R.id.tv_opcion3:
                 if (!respondido){
                     if(tvOpcion3.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion3.setBackgroundColor(Color.parseColor("#63F311"));
+                        tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     else{
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
@@ -276,7 +269,7 @@ public class Quiz extends AppCompatActivity {
             case R.id.tv_opcion4:
                 if (!respondido){
                     if(tvOpcion4.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion4.setBackgroundColor(Color.parseColor("#63F311"));
+                        tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     else{
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
@@ -307,5 +300,6 @@ public class Quiz extends AppCompatActivity {
 
         tvOpcion4.setText(listaOpciones.get(0));
         listaOpciones.remove(0);
+
     }
 }
