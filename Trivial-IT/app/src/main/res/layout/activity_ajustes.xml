@@ -8,34 +8,40 @@
     tools:context=".Ajustes">
 
 
-    <Button
-        android:id="@+id/play"
-        android:layout_width="52dp"
-        android:layout_height="50dp"
-        android:background="@drawable/play"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
+        app:layout_constraintVertical_bias="0.309">
+
+        <TextView
+            android:id="@+id/tv_musica"
+            android:layout_width="138dp"
+            android:layout_height="53dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/musica"
+            android:textSize="40sp" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_PlayMusica"
+            android:layout_width="52dp"
+            android:layout_height="50dp"
+            android:background="@drawable/pause"
+            android:onClick="btnPlayMusica" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="138dp"
-        android:layout_height="53dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="@string/musica"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
-
-    <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_Ajustes"
         android:layout_width="343dp"
         android:layout_height="136dp"
         android:text="@string/ajustess"

@@ -16,9 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="30dp"
         android:contentDescription="@string/logo"
         app:srcCompat="@drawable/logo" />
 
