@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo4"
     tools:context=".QLocal">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="411dp"
+        android:layout_height="592dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="40dp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.082">
 
         <Button
             android:id="@+id/btn1"
@@ -24,6 +26,7 @@
             android:layout_marginVertical="10dp"
             android:onClick="btnTematica"
             android:text="Base de datos" />
+
         <Button
             android:id="@+id/btn2"
             android:layout_width="match_parent"
@@ -31,6 +34,7 @@
             android:layout_marginVertical="10dp"
             android:onClick="btnTematica"
             android:text="Programación" />
+
         <Button
             android:id="@+id/btn3"
             android:layout_width="match_parent"
@@ -38,6 +42,7 @@
             android:layout_marginVertical="10dp"
             android:onClick="btnTematica"
             android:text="Programación Web" />
+
         <Button
             android:id="@+id/btn4"
             android:layout_width="match_parent"
@@ -45,6 +50,7 @@
             android:layout_marginVertical="10dp"
             android:onClick="btnTematica"
             android:text="Sistemas Informáticos" />
+
         <Button
             android:id="@+id/btn5"
             android:layout_width="match_parent"
@@ -52,6 +58,7 @@
             android:layout_marginVertical="10dp"
             android:onClick="btnTematica"
             android:text="Entornos de Desarrollo" />
+
         <Button
             android:id="@+id/btn6"
             android:layout_width="match_parent"
@@ -61,4 +68,18 @@
             android:text="Hardware" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="102dp"
+        android:layout_height="91dp"
+        android:baselineAligned="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.906"
+        app:srcCompat="@drawable/atras" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

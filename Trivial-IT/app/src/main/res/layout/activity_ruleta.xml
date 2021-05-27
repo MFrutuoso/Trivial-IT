@@ -3,21 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo4"
     android:baselineAligned="false"
     android:padding="10dp"
     tools:context=".Ruleta">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="78dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/rouletteImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView10"
-        app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122">
 
         <ImageView
             android:id="@+id/imageView26"
@@ -62,13 +63,15 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/rouletteImage"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
-        app:layout_constraintTop_toTopOf="@+id/imageView12">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -115,8 +118,8 @@
 
     <ImageView
         android:id="@+id/rouletteImage"
-        android:layout_width="373dp"
-        android:layout_height="419dp"
+        android:layout_width="376dp"
+        android:layout_height="473dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
@@ -124,39 +127,24 @@
         android:src="@drawable/ruleta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
+        app:layout_constraintVertical_bias="0.542" />
 
     <Button
         android:id="@+id/buttonStart"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/girar"
+        android:background="@drawable/girar1"
         android:onClick="onClickButtonRotation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591"
+        app:layout_constraintVertical_bias="0.525"
         tools:ignore="OnClick" />
-
-    <ImageView
-        android:id="@+id/imageSelected"
-        android:layout_width="39dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="170dp"
-        android:layout_marginEnd="164dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/marcador"
-        app:layout_constraintBottom_toBottomOf="@+id/rouletteImage"
-        app:layout_constraintEnd_toEndOf="@+id/rouletteImage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/rouletteImage"
-        app:layout_constraintTop_toTopOf="@+id/rouletteImage"
-        app:layout_constraintVertical_bias="0.039" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -214,11 +202,43 @@
         android:layout_width="wrap_content"
         android:minWidth="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:minWidth="100dp"
         android:text=""
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/rouletteImage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageSelected"
+        android:layout_width="213dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginEnd="164dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/marcador1"
+        app:layout_constraintBottom_toBottomOf="@+id/rouletteImage"
+        app:layout_constraintEnd_toEndOf="@+id/rouletteImage"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/rouletteImage"
+        app:layout_constraintTop_toTopOf="@+id/rouletteImage"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="102dp"
+        android:layout_height="91dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"
+        app:srcCompat="@drawable/atras" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
