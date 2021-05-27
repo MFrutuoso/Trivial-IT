@@ -23,4 +23,7 @@
     <string name="jugador2">Jugador 2</string>
     <string name="musica">Música</string>
     <string name="ajustess">Ajustes</string>
+    <string name="pase_y_juegue">Pase y Juegue</string>
+    <string name="practica">Practica</string>
+    <string name="multijugador">Multijugador</string>
 </resources>
