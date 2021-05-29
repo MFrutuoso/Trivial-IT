@@ -32,4 +32,9 @@ public class ModoDeJuego extends AppCompatActivity {
         startActivity(intent);
         mp.start();
     }
+
+    public void btn_Atras(View view) {
+        Intent i = new Intent(this, Principal.class);
+        startActivity(i);
+    }
 }

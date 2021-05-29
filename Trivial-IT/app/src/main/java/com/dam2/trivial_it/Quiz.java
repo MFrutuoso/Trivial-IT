@@ -342,10 +342,7 @@ public class Quiz extends AppCompatActivity {
         mostrarPregunta();
     }
     public void btnAtras(View view) {
-        //if (qCont==10) btnSiguiente.setEnabled(true);
-        qCont-=2;
-        Intent i = new Intent(this, Ruleta.class);
+        Intent i = new Intent(this, ModoDeJuego.class);
         startActivity(i);
-
     }
 }
