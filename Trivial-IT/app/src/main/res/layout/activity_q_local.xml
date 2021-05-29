@@ -8,8 +8,9 @@
     tools:context=".QLocal">
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="592dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="413dp"
+        android:layout_height="438dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="40dp"
@@ -17,55 +18,73 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.082">
+        app:layout_constraintVertical_bias="0.392">
 
         <Button
             android:id="@+id/btn1"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Base de datos" />
+            android:text="Base de datos"
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/btn2"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Programación" />
+            android:text="Programación"
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/btn3"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Programación Web" />
+            android:text="Programación Web"
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/btn4"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Sistemas Informáticos" />
+            android:text="Sistemas Informáticos"
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/btn5"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Entornos de Desarrollo" />
+            android:text="Entornos de Desarrollo"
+            android:textColor="#000" />
 
         <Button
             android:id="@+id/btn6"
-            android:layout_width="match_parent"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/bordes"
+            android:fontFamily="casual"
             android:onClick="btnTematica"
-            android:text="Hardware" />
+            android:text="Hardware"
+            android:textColor="#000" />
 
     </LinearLayout>
 
@@ -76,10 +95,29 @@
         android:baselineAligned="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906"
+        app:layout_constraintVertical_bias="0.934"
         app:srcCompat="@drawable/atras" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="447dp"
+        android:layout_height="58dp"
+        android:background="@drawable/fondo_categoria"
+        android:fontFamily="casual"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:shadowColor="#FF0000"
+        android:text="ENTRENAMIENTO"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
