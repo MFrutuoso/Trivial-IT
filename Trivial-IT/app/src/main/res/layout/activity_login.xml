@@ -27,7 +27,7 @@
 
         android:autofillHints=""
         android:ems="10"
-        android:fontFamily="monospace"
+        android:fontFamily="casual"
         android:hint="@string/email"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
@@ -61,7 +61,7 @@
         android:layout_height="69dp"
         android:autofillHints=""
         android:ems="9"
-        android:fontFamily="monospace"
+        android:fontFamily="casual"
         android:hint="@string/contrase_a"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"

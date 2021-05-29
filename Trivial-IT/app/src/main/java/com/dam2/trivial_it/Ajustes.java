@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.Principal;
+
 public class Ajustes extends AppCompatActivity {
     Button btnPlayMusica;
 
@@ -49,13 +51,14 @@ public class Ajustes extends AppCompatActivity {
             Login.encendida = true;
         }
     }
+
     //Metodo para apagar musica
     public void apagarMusica(){
         if(Login.encendida==true){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.stopService(miReproductor);
             Login.encendida = false;
+            //onPause();
         }
-
     }
 }

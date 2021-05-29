@@ -9,19 +9,17 @@ public class ServicioMusica extends Service {
 
     private MediaPlayer miReproductor;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
 
         miReproductor = null;
-
         miReproductor = MediaPlayer.create(this, R.raw.fondo);
         miReproductor.setLooping(true);
         miReproductor.setVolume(100f,100f);
 
-    }
 
+    }
     ///Iniciamos el servicio
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -42,6 +40,8 @@ public class ServicioMusica extends Service {
         miReproductor.release();
         miReproductor = null;
 
+
+
     }
 
     @Override
@@ -49,5 +49,6 @@ public class ServicioMusica extends Service {
         // TODO: Return the communication channel to the service.
         //throw new UnsupportedOperationException("Not yet implemented");
         return null;
+
     }
 }

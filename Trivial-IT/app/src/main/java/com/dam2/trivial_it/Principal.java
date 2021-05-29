@@ -1,15 +1,18 @@
 package com.dam2.trivial_it;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.view.View;
 
 public class Principal extends AppCompatActivity {
     MediaPlayer mp;
+    MediaPlayer fondo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

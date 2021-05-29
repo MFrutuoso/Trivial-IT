@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+     android:background="@drawable/fondo3"
     tools:context=".Ajustes">
 
 
@@ -24,8 +24,10 @@
             android:id="@+id/tv_musica"
             android:layout_width="138dp"
             android:layout_height="53dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:fontFamily="casual"
             android:text="@string/musica"
+            android:textColor="#000"
+            android:textStyle="bold"
             android:textSize="40sp" />
 
         <Space
@@ -44,6 +46,7 @@
         android:id="@+id/tv_Ajustes"
         android:layout_width="343dp"
         android:layout_height="136dp"
+        android:fontFamily="casual"
         android:text="@string/ajustess"
         android:textSize="90sp"
         app:layout_constraintBottom_toBottomOf="parent"

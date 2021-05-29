@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -174,8 +175,6 @@ public class Quiz extends AppCompatActivity {
         }
     }
 
-
-
     //Obtenemos las posiciones de las 5 preguntas a mostrar en QLocal
     public void cincoPreguntasAleatorias(int numRegistros){
         int contador=0;
@@ -252,9 +251,11 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){ //Si no ha seleccionado ninguna respuesta antes...
                     if(tvOpcion1.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
+                        correcto.start();
                     }
                     else{
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
+                        error.start();
                         if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
@@ -266,9 +267,12 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){
                     if(tvOpcion2.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        correcto.start();
+
                     }
                     else{
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        error.start();
                         if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
@@ -280,9 +284,13 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){
                     if(tvOpcion3.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+
+                        correcto.start();
+
                     }
                     else{
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        error.start();
                         if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
@@ -294,9 +302,13 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){
                     if(tvOpcion4.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+
+                        correcto.start();
+
                     }
                     else{
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                        error.start();
                         if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
@@ -324,7 +336,6 @@ public class Quiz extends AppCompatActivity {
 
         tvOpcion4.setText(listaOpciones.get(0));
         listaOpciones.remove(0);
-
     }
 
     public void btnNext(View view) {
@@ -335,5 +346,6 @@ public class Quiz extends AppCompatActivity {
         qCont-=2;
         Intent i = new Intent(this, Ruleta.class);
         startActivity(i);
+
     }
 }
