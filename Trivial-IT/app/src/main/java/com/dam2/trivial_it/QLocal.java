@@ -30,7 +30,7 @@ public class QLocal extends AppCompatActivity {
             case R.id.btn1: //Base de datos
                 mp.start();
                 categoria=1;
-                tablaCat="database";
+                tablaCat="basededatos";
                 break;
             case R.id.btn2: //Programación
                 mp.start();
@@ -66,7 +66,7 @@ public class QLocal extends AppCompatActivity {
         else value = categorias[categoria-1];
 
         Intent i = new Intent(this, Quiz.class);
-
+        i.putExtra("intentPractica",true);
         i.putExtra("categoria", value);
         i.putExtra("numCat", categoria);
         i.putExtra("tablaCat",tablaCat);
