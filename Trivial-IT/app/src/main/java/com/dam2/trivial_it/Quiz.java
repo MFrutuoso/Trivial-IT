@@ -1,36 +1,33 @@
 package com.dam2.trivial_it;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
+import androidx.core.content.ContextCompat;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Quiz extends AppCompatActivity {
 
     //Declaración de variables y objetos
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador;
-    Button btnSiguiente, btnAbandonar;
 
     RequestQueue requestQueue;
     String[][] qPractica = new String[5][7];
@@ -46,6 +43,8 @@ public class Quiz extends AppCompatActivity {
 
     int [] pos5Preguntas = {-1,-1,-1,-1,-1}; //Posiciones para las 5 preguntas que se mostraran en modo entrenamiento
 
+    int aciertos=0; //Variable para contabilizar los aciertos en el modo entrenamiento
+
 	MediaPlayer error;
     MediaPlayer correcto;
 
@@ -55,8 +54,6 @@ public class Quiz extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         //Enlazamos componentes del XML con variables
-        //btnSiguiente = findViewById(R.id.btn_siguiente);
-        //btnAbandonar = findViewById(R.id.btn_abandonar);
         tvCategoria = findViewById(R.id.tv_categoria);
         tvPregunta = findViewById(R.id.tv_pregunta);
         tvOpcion1 = findViewById(R.id.tv_opcion1);
@@ -80,13 +77,7 @@ public class Quiz extends AppCompatActivity {
             tvCategoria.setText(categoria);
             intentPractica = extras.getBoolean("intentPractica");
 
-            //if(!intentPractica) btnSiguiente.setText("Continuar");
-
         }else Log.e("Bundle extras", "null");
-
-//        if (intentPractica){
-//            addIndicesqPractica(); //Añadimos los indices al array para el modo practica
-//        }
 
         String url = Locale.getDefault().getLanguage(); //Obtenemos el lenguaje del usuario
 
@@ -95,9 +86,6 @@ public class Quiz extends AppCompatActivity {
         else url = "http://redcapcrd.es/trivialit/find.php?id="+tablaCat;
 
         buscarDatos(url); //Llamamos al método de la consulta a la DB
-
-        qCont=0;
-
     }
 
     //Método para buscar los datos en la DB
@@ -117,28 +105,21 @@ public class Quiz extends AppCompatActivity {
 
                         if(intentPractica){ //SI ES EL MODO ENTRENAMIENTO
 
-                            if(i==0) cincoPreguntasAleatorias(nResultados);
+                            if(i==0) cincoPreguntasAleatorias(nResultados); //Generamos las 5 entradas aleatorias
 
-                            if (i==pos5Preguntas[0])
-                                quizLocal(i, jsonObject); //Si es el modo practica se ejecuta este método
-                            if (i==pos5Preguntas[1])
-                                quizLocal(i, jsonObject); //Si es el modo practica se ejecuta este método
-                            if (i==pos5Preguntas[2])
-                                quizLocal(i, jsonObject); //Si es el modo practica se ejecuta este método
-                            if (i==pos5Preguntas[3])
-                                quizLocal(i, jsonObject); //Si es el modo practica se ejecuta este método
-                            if (i==pos5Preguntas[4])
-                                quizLocal(i, jsonObject); //Si es el modo practica se ejecuta este método
+                            if (i==pos5Preguntas[0]) quizLocal(jsonObject); //Metodo para guardar la pregunta completa
+                            if (i==pos5Preguntas[1]) quizLocal(jsonObject);
+                            if (i==pos5Preguntas[2]) quizLocal(jsonObject);
+                            if (i==pos5Preguntas[3]) quizLocal(jsonObject);
+                            if (i==pos5Preguntas[4]) quizLocal(jsonObject);
                         }
                         //-------------------------------------------------------------------------------------------
                         else{ //quizRuleta
                             if(i==0){
                                 numAleatorio = (int) Math.floor(Math.random()*(nResultados-0+1)+0);  // Valor entre M y N, ambos incluidos.
                             }
-                            if(i == numAleatorio)
-                                quizRuleta(jsonObject);
+                            if(i == numAleatorio) quizRuleta(jsonObject);
                         }
-
                     } catch (JSONException e) {
                         Log.e("catch", "Error en JSON buscarDatos()");
                         Toast.makeText(Quiz.this, "Error", Toast.LENGTH_SHORT).show();
@@ -166,7 +147,7 @@ public class Quiz extends AppCompatActivity {
             listaOpcionesQLocal();
             tvPregunta.setText(qPractica[qCont][1]);
             mostarOpcionesAleatorias();
-            tvContador.setText((qCont+1)+"/10");
+            tvContador.setText((qCont+1)+"/5");
         }
 
         else{ //quizRuleta
@@ -178,41 +159,52 @@ public class Quiz extends AppCompatActivity {
     //Obtenemos las posiciones de las 5 preguntas a mostrar en QLocal
     public void cincoPreguntasAleatorias(int numRegistros){
         int contador=0;
-        boolean coincide = false;
-
-        pos5Preguntas[0] = (int) Math.floor(Math.random()*(numRegistros-0+1)+0); //Obtenemos el primmer [0] fuera del bucle
         do{
+            boolean encontrado=false;
             numAleatorio = (int) Math.floor(Math.random()*(numRegistros-0+1)+0);  // Valor entre M y N, ambos incluidos.
-            for(int i=0; i<5; i++){
-                if (i==0) break; //Salimos del bucle para asignar el primer valor a pos5Preguntas[0] ya que es el primero.
-                if(pos5Preguntas[i]==numAleatorio) {
-                    coincide = true;
+            for(int i=0; i<pos5Preguntas.length; i++){
+                if (pos5Preguntas[i]==numAleatorio){
+                    encontrado = true;
                     break;
                 }
             }
-            if (!coincide){
-                pos5Preguntas[contador] = numAleatorio;
-                System.out.println("pos5Preguntas["+contador+"] = "+pos5Preguntas[contador]);
+            if (!encontrado){
+                pos5Preguntas[contador]=numAleatorio;
                 contador++;
             }
-            else coincide=false;
-        }while(contador<5);
+        }while(contador < 5);
+        Arrays.sort(pos5Preguntas);
+        String contenido="";
+
+        for (int i=0; i<pos5Preguntas.length; i++){
+            contenido+=pos5Preguntas[i]+" - ";
+        }
+        System.out.println(contenido);
     }
 
-
+    int contadorPregunta=0;
     //Metodo si venimos del activity de QLocal
-    public void quizLocal(int i, JSONObject jsonObject) throws JSONException {
+    public void quizLocal(JSONObject jsonObject) throws JSONException {
 
-        qPractica[i][0] = jsonObject.getString("id");
-        qPractica[i][1] = jsonObject.getString("pregunta");
-        qPractica[i][2] = jsonObject.getString("respuesta");
-        qPractica[i][3] = jsonObject.getString("incorrecta1");
-        qPractica[i][4] = jsonObject.getString("incorrecta2");
-        qPractica[i][5] = jsonObject.getString("incorrecta3");
-        qPractica[i][6] = jsonObject.getString("categoria");
+        Log.e("ContadorPregunta = ",""+contadorPregunta);
+        qPractica[contadorPregunta][0] = jsonObject.getString("id");
+        qPractica[contadorPregunta][1] = jsonObject.getString("pregunta");
+        qPractica[contadorPregunta][2] = jsonObject.getString("respuesta");
+        qPractica[contadorPregunta][3] = jsonObject.getString("incorrecta1");
+        qPractica[contadorPregunta][4] = jsonObject.getString("incorrecta2");
+        qPractica[contadorPregunta][5] = jsonObject.getString("incorrecta3");
+        qPractica[contadorPregunta][6] = jsonObject.getString("categoria");
+
+        for(int l=0; l<qPractica[0].length; l++){
+            System.out.println("qPractica["+contadorPregunta+"]["+l+"] = "+qPractica[contadorPregunta][l]);
+        }
+
+        contadorPregunta++;
+        if (contadorPregunta==5) contadorPregunta=0; //Si ya ha llegado a 5 (cumplido su cometido) restablecemos la variable a 0.
     }
 
     public void listaOpcionesQLocal(){
+        Log.e("qCont","Posicion array ="+qCont);
         listaOpciones.add(qPractica[qCont][2]);
         listaOpciones.add(qPractica[qCont][3]);
         listaOpciones.add(qPractica[qCont][4]);
@@ -252,6 +244,7 @@ public class Quiz extends AppCompatActivity {
                     if(tvOpcion1.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
                         correcto.start();
+                        aciertos++;
                     }
                     else{
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
@@ -268,7 +261,7 @@ public class Quiz extends AppCompatActivity {
                     if(tvOpcion2.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         correcto.start();
-
+                        aciertos++;
                     }
                     else{
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
@@ -284,7 +277,7 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){
                     if(tvOpcion3.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
-
+                        aciertos++;
                         correcto.start();
 
                     }
@@ -302,7 +295,7 @@ public class Quiz extends AppCompatActivity {
                 if (!respondido){
                     if(tvOpcion4.getText().toString().equals(respuestaCorrecta)){
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
-
+                        aciertos++;
                         correcto.start();
 
                     }
@@ -322,7 +315,6 @@ public class Quiz extends AppCompatActivity {
     public void mostarOpcionesAleatorias(){
 
         numAleatorio = (int) Math.floor(Math.random()*((listaOpciones.size()-1)-0+1)+0);  // Genera un numero aleatorio entre 0 y el tamaño del ArrayList.
-        //Log.e("NumAleatorioLista", numAleatorio+"");
         tvOpcion1.setText(listaOpciones.get(numAleatorio)); //Mostramos en la 1a opción la posición aleatoria del ArrayList
         listaOpciones.remove(numAleatorio); //Eliminamos de la lista la opción ya mostrada en TextView
 
@@ -339,8 +331,37 @@ public class Quiz extends AppCompatActivity {
     }
 
     public void btnNext(View view) {
-        mostrarPregunta();
+        if (intentPractica){
+            if (qCont<4){
+                respondido=false;
+                tvOpcion1.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
+                tvOpcion2.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
+                tvOpcion3.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
+                tvOpcion4.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
+                mostrarPregunta();
+            }else mostrarPuntuacion();
+        }
+
+
     }
+
+    private void mostrarPuntuacion() {
+        String mensajeAlert="Aciertos: "+aciertos+"\nFallos: "+(5-aciertos);
+        String tituloAlert ="Resultado del entrenamiento";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(mensajeAlert)
+                .setTitle(tituloAlert);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(Quiz.this, QLocal.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     public void btnAtras(View view) {
         Intent i = new Intent(this, ModoDeJuego.class);
         startActivity(i);

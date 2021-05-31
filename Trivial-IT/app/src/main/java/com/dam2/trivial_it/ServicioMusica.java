@@ -12,13 +12,10 @@ public class ServicioMusica extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         miReproductor = null;
         miReproductor = MediaPlayer.create(this, R.raw.fondo);
         miReproductor.setLooping(true);
         miReproductor.setVolume(100f,100f);
-
-
     }
     ///Iniciamos el servicio
     @Override
@@ -29,7 +26,6 @@ public class ServicioMusica extends Service {
                 miReproductor.start();
         }
         return START_STICKY;
-
     }
 
     //Paramos el servicio
@@ -39,9 +35,6 @@ public class ServicioMusica extends Service {
         if(miReproductor.isPlaying() == true) miReproductor.stop();
         miReproductor.release();
         miReproductor = null;
-
-
-
     }
 
     @Override
@@ -49,6 +42,5 @@ public class ServicioMusica extends Service {
         // TODO: Return the communication channel to the service.
         //throw new UnsupportedOperationException("Not yet implemented");
         return null;
-
     }
 }
