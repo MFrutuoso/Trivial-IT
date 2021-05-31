@@ -12,16 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".Registro"></activity>
         <activity android:name=".MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity android:name=".ModoDeJuego"></activity>
+        <activity android:name=".ModoDeJuego" />
         <activity android:name=".QLocal" />
         <activity android:name=".Ajustes" />
         <activity android:name=".Estadisticas" />
@@ -30,10 +29,11 @@
         <activity android:name=".PActivas" />
         <activity android:name=".Principal" />
         <activity android:name=".Login" />
+
         <service
             android:name=".ServicioMusica"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
 
 </manifest>

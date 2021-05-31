@@ -1,6 +1,7 @@
 package com.dam2.trivial_it;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -13,29 +14,36 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Quiz extends AppCompatActivity {
+
 
     //Declaración de variables y objetos
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador;
     Button btnSiguiente, btnAbandonar;
 
+
     RequestQueue requestQueue;
     String[][] qPractica = new String[5][7];
     int qCont=-1;
-
     Boolean intentPractica=null; //Para comprobar el modo de juego
     int numAleatorio=-1; //Variable usada para generar un numero aleatorio en varias ocasiones
 
@@ -199,7 +207,6 @@ public class Quiz extends AppCompatActivity {
         }while(contador<5);
     }
 
-
     //Metodo si venimos del activity de QLocal
     public void quizLocal(int i, JSONObject jsonObject) throws JSONException {
 
@@ -255,6 +262,7 @@ public class Quiz extends AppCompatActivity {
                     }
                     else{
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
+
                         error.start();
                         if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
