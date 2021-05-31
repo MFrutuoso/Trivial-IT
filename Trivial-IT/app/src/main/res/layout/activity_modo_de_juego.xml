@@ -53,6 +53,7 @@
         android:id="@+id/imageView14"
         android:layout_width="102dp"
         android:layout_height="91dp"
+        android:onClick="btn_Atras"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.009"

@@ -73,4 +73,9 @@ public class QLocal extends AppCompatActivity {
 
         startActivity(i);
     }
+
+    public void btn_Atras(View view) {
+        Intent i = new Intent(this, ModoDeJuego.class);
+        startActivity(i);
+    }
 }

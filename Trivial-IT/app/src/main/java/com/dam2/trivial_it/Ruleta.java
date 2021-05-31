@@ -123,4 +123,9 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         }while(res == null);
         textView.setText(res); //TextView prescindible, muestra categoría elegida.
     }
+
+    public void btnAtras(View view) {
+        Intent i = new Intent(this, ModoDeJuego.class);
+        startActivity(i);
+    }
 }
