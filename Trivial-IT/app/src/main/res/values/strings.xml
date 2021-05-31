@@ -26,4 +26,11 @@
     <string name="pase_y_juegue">Pase y Juegue</string>
     <string name="practica">Practica</string>
     <string name="multijugador">Multijugador</string>
+    <string name="nick">Nick</string>
+    <string name="registro_nick">Nick</string>
+    <string name="Registro_password">Password</string>
+    <string name="registro">¡Registro!</string>
+    <string name="confPass">Confirmar Contraseña</string>
+    <string name="registro_pass">Contraseña</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
 </resources>

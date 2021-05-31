@@ -21,14 +21,14 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etUsuario"
         android:layout_width="286dp"
         android:layout_height="66dp"
 
         android:autofillHints=""
         android:ems="10"
         android:fontFamily="casual"
-        android:hint="@string/email"
+        android:hint="@string/nick"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.543" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLogin"
         android:layout_width="41dp"
         android:layout_height="43dp"
         android:background="@drawable/login"
@@ -56,14 +56,13 @@
         app:layout_constraintVertical_bias="0.723" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etpass"
         android:layout_width="287dp"
         android:layout_height="69dp"
         android:autofillHints=""
         android:ems="9"
         android:fontFamily="casual"
         android:hint="@string/contrase_a"
-        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -74,7 +73,8 @@
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+        android:inputType="textPassword"
+        app:layout_constraintVertical_bias="0.648" />
 
     <Button
         android:id="@+id/button5"
@@ -110,5 +110,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
+
+    <Button
+        android:id="@+id/btnRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="btnRegistro"
+        android:text="Registrarse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etUsuario"
+        app:layout_constraintVertical_bias="0.507" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
