@@ -1,6 +1,8 @@
 package com.dam2.trivial_it;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import java.util.Map;
 public class Registro extends AppCompatActivity {
         EditText  etRegistroNick, etRegistroPass, etRegistroPass2;
         Button btnConfRegistro;
+
+        String nick, pass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +38,6 @@ public class Registro extends AppCompatActivity {
         btnConfRegistro=(Button) findViewById(R.id.btnConfRegistro);
 
         btnConfRegistro.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if(etRegistroPass.getText().toString().equals(etRegistroPass2.getText().toString())) {
@@ -70,4 +74,5 @@ public class Registro extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
 }

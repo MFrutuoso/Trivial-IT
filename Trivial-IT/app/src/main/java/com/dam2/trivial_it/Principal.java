@@ -24,16 +24,11 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         mp = MediaPlayer.create(this, R.raw.boton_sound);
-
-        close = (Button)findViewById(R.id.btnCS);
-        close.setOnClickListener(v -> {
-            SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
-            preferences.edit().clear().commit();
-            Intent intent=new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
-            finish();
-        });
-
+    }
+    public void btnRuleta(View view){
+        Intent intent = new Intent(this, Ruleta.class);
+        startActivity(intent);
+        mp.start();
     }
     public void btnNuevaPartida(View view){
         Intent IRuleta = new Intent(this, ModoDeJuego.class);

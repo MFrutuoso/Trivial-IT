@@ -1,5 +1,6 @@
 package com.dam2.trivial_it;
 
+import android.app.ApplicationExitInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
-    static Boolean encendida;
+    static Boolean encendida = true;
     EditText edtUsuario, edtPassword;
     Button btnLogin;
     String nick, pass;
@@ -99,7 +100,7 @@ public class Login extends AppCompatActivity {
     }
 
     //
-    //!!!!!!!!!!!!! INTENT ANTES DE VERIFICACION DE USUARIO !!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!! INTENT ANTES DE la VERIFICACION DE USUARIO !!!!!!!!!!!!!!!!!!!!!!
     //Inicia sesión y nos lleva al menú principal
     /*public void intentPrincipal(View view){
         Intent IPrincipal = new Intent(this, Principal.class);
@@ -128,6 +129,7 @@ public class Login extends AppCompatActivity {
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.startService(miReproductor);
             encendida = true;
+
         }
 
     }
