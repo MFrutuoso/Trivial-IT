@@ -1,8 +1,6 @@
 package com.dam2.trivial_it;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,15 +9,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Ajustes extends AppCompatActivity {
-    Button btnPlayMusica, cerrar;
+    Button btnPlayMusica;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        btnPlayMusica = (Button)findViewById(R.id.btn_PlayMusica);
+        btnPlayMusica = findViewById(R.id.btn_PlayMusica);
+    /*
         cerrar = (Button)findViewById(R.id.btnCerrarSesion);
-
         cerrar.setOnClickListener(v -> {
             SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
             preferences.edit().clear().commit();
@@ -27,6 +25,7 @@ public class Ajustes extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+     */
         //Se indica al botón la imagen que debe tener según el estado (Encendida/apagada)
         if(Login.encendida){
             btnPlayMusica.setBackgroundResource(R.drawable.pause);
@@ -52,16 +51,15 @@ public class Ajustes extends AppCompatActivity {
 
     //Metodo para encender musica
     public void encenderMusica(){
-        if(Login.encendida==false){
+        if(!Login.encendida){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             startService(miReproductor);
             Login.encendida = true;
         }
     }
-
     //Metodo para apagar musica
     public void apagarMusica(){
-        if(Login.encendida==true){
+        if(Login.encendida){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.stopService(miReproductor);
             Login.encendida = false;

@@ -27,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /*
+                //codigo antes del login
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
                 finish();
                  */
                 SharedPreferences preferences = getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
-                boolean sesion=preferences.getBoolean("sesion", false);
+                boolean sesion=preferences.getBoolean("sesion", true);
                 if(sesion){
                     Intent intent = new Intent(getApplicationContext(), Principal.class);
                     startActivity(intent);

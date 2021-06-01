@@ -17,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class Principal extends AppCompatActivity {
     MediaPlayer mp;
     MediaPlayer fondo;
-    Button cerrar;
+    Button close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +25,14 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
         mp = MediaPlayer.create(this, R.raw.boton_sound);
 
-        /*cerrar = (Button)findViewById(R.id.btnCerrarSesion);
-        cerrar.setOnClickListener(v -> {
+        close = (Button)findViewById(R.id.btnCS);
+        close.setOnClickListener(v -> {
             SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
             preferences.edit().clear().commit();
             Intent intent=new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
-        });*/
+        });
 
     }
     public void btnNuevaPartida(View view){
