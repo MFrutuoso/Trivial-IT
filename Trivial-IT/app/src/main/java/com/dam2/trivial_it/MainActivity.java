@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
                  */
                 SharedPreferences preferences = getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
                 boolean sesion=preferences.getBoolean("sesion", false);
+                Login.encendida = preferences.getBoolean("encendida", true); //Obtenemos pref. del user en la musica
+                if (Login.encendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
+                Log.e("Login.encendida",""+Login.encendida);
                 if(sesion){
                     Intent intent = new Intent(getApplicationContext(), Principal.class);
                     startActivity(intent);
@@ -44,5 +48,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         }, DURACION_SPLASH);
+    }
+    //Método para encender la música
+    public void encenderMusica(){
+        if(Login.encendida){
+            Intent miReproductor = new Intent(this, ServicioMusica.class);
+            this.startService(miReproductor);
+            Login.encendida = true;
+        }
     }
 }

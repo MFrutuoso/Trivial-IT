@@ -114,6 +114,7 @@ public class Login extends AppCompatActivity {
         editor.putString("nick", nick);
         editor.putString("pass", pass);
         editor.putBoolean("sesion", true);
+        editor.putBoolean("encendida", Login.encendida); //Guardamos el estado de la musica
         editor.commit();
     }
 
@@ -129,9 +130,7 @@ public class Login extends AppCompatActivity {
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.startService(miReproductor);
             encendida = true;
-
         }
-
     }
 
 }
