@@ -12,8 +12,8 @@
 
     <TextView
         android:id="@+id/tv_contador"
-        android:layout_width="421dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:background="#FF5243"
         android:fontFamily="casual"
         android:gravity="center"
@@ -174,10 +174,13 @@
             android:paddingHorizontal="70dp"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btn_Siguiente"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:adjustViewBounds="true"
                 android:onClick="btnNext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +188,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.992"
-                app:srcCompat="@drawable/next" />
+                app:srcCompat="@drawable/next_disable" />
 
         </LinearLayout>
 
