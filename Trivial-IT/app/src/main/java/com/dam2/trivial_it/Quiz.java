@@ -6,8 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +28,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.net.URL;
@@ -31,13 +37,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Delayed;
 
 public class Quiz extends AppCompatActivity {
 
 
     //Declaración de variables y objetos
-    TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador;
+    TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador, tiempo;
+    int contadorPregunta=0;
 
+    CountDownTimer countDownTimer;
+    private long timeMili=11000;
+    public boolean timeRunning;
 
     RequestQueue requestQueue;
     String[][] qPractica = new String[5][7];
@@ -57,11 +69,14 @@ public class Quiz extends AppCompatActivity {
 	MediaPlayer error;
     MediaPlayer correcto;
 
+    ImageButton btnSiguiente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        tiempo = findViewById(R.id.tiempo);
         //Enlazamos componentes del XML con variables
         tvCategoria = findViewById(R.id.tv_categoria);
         tvPregunta = findViewById(R.id.tv_pregunta);
@@ -72,8 +87,10 @@ public class Quiz extends AppCompatActivity {
         tvContador = findViewById(R.id.tv_contador);
 		error = MediaPlayer.create(this, R.raw.error);
         correcto = MediaPlayer.create(this, R.raw.acierto);
-
+        btnSiguiente = findViewById(R.id.btn_Siguiente);
         listaOpciones.ensureCapacity(4); //Le indicamos el numero de posiciones para ahorrar recursos
+        startTimer();
+        btnSiguiente.setEnabled(false); //Por defecto no puede pasar la pregunta
 
         String categoria="";
         String tablaCat="";
@@ -97,6 +114,32 @@ public class Quiz extends AppCompatActivity {
         buscarDatos(url); //Llamamos al método de la consulta a la DB
     }
 
+    //TIEMPO
+    public void startTimer(){
+        countDownTimer = new CountDownTimer(timeMili, 1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tiempo.setText(String.valueOf((millisUntilFinished / 1000)));
+            }
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+        timeRunning=true;
+    }
+
+/*
+    public void updateTimer(){
+        int sec = (int) timeMili % 60000/1000;
+        String timeLeft="";
+        timeLeft+=sec;
+        if(sec<10) timeLeft+=0;
+        timeLeft+=sec;
+
+        tiempo.setText(timeLeft);
+    }
+*/
     //Método para buscar los datos en la DB
     public void buscarDatos(String URL){
         Log.e("URL", URL);
@@ -109,17 +152,20 @@ public class Quiz extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) { //Int con el número total de las consultas. Solo necesitamos hasta 10 por el tamaño del array.
                     try {
                         jsonObject = response.getJSONObject(i);
+                        /*
+<<<<<<< HEAD
                         int nResultados = response.length();
+=======
+>>>>>>> ce4311265be85a42d1df12bf31fc6a66e64fe3ea*/
+                        int nResultados = response.length()-1; //Total de registros, le restamos 1 ya que la DB empieza en 0 y no en 1
+
 
                         if(intentPractica){ //SI ES EL MODO ENTRENAMIENTO
-
                             if(i==0) cincoPreguntasAleatorias(nResultados); //Generamos las 5 entradas aleatorias
 
-                            if (i==pos5Preguntas[0]) quizLocal(jsonObject); //Metodo para guardar la pregunta completa
-                            if (i==pos5Preguntas[1]) quizLocal(jsonObject);
-                            if (i==pos5Preguntas[2]) quizLocal(jsonObject);
-                            if (i==pos5Preguntas[3]) quizLocal(jsonObject);
-                            if (i==pos5Preguntas[4]) quizLocal(jsonObject);
+                            for (int j=0; j<pos5Preguntas.length; j++){
+                                if (i==pos5Preguntas[j]) quizLocal(jsonObject); //Metodo para guardar la pregunta completa
+                            }
                         }
                         //-------------------------------------------------------------------------------------------
                         else{ //quizRuleta
@@ -157,7 +203,6 @@ public class Quiz extends AppCompatActivity {
             mostarOpcionesAleatorias();
             tvContador.setText((qCont+1)+"/5");
         }
-
         else{ //quizRuleta
             tvPregunta.setText(preguntaCompleta[1]);
             mostarOpcionesAleatorias();
@@ -183,18 +228,11 @@ public class Quiz extends AppCompatActivity {
         }while(contador < 5);
         Arrays.sort(pos5Preguntas);
         String contenido="";
-
-        for (int i=0; i<pos5Preguntas.length; i++){
-            contenido+=pos5Preguntas[i]+" - ";
-        }
-        System.out.println(contenido);
     }
-    int contadorPregunta=0;
 
     //Metodo si venimos del activity de QLocal
     public void quizLocal(JSONObject jsonObject) throws JSONException {
 
-        Log.e("ContadorPregunta = ",""+contadorPregunta);
         qPractica[contadorPregunta][0] = jsonObject.getString("id");
         qPractica[contadorPregunta][1] = jsonObject.getString("pregunta");
         qPractica[contadorPregunta][2] = jsonObject.getString("respuesta");
@@ -203,16 +241,11 @@ public class Quiz extends AppCompatActivity {
         qPractica[contadorPregunta][5] = jsonObject.getString("incorrecta3");
         qPractica[contadorPregunta][6] = jsonObject.getString("categoria");
 
-        for(int l=0; l<qPractica[0].length; l++){
-            System.out.println("qPractica["+contadorPregunta+"]["+l+"] = "+qPractica[contadorPregunta][l]);
-        }
-
         contadorPregunta++;
         if (contadorPregunta==5) contadorPregunta=0; //Si ya ha llegado a 5 (cumplido su cometido) restablecemos la variable a 0.
     }
 
     public void listaOpcionesQLocal(){
-        Log.e("qCont","Posicion array ="+qCont);
         listaOpciones.add(qPractica[qCont][2]);
         listaOpciones.add(qPractica[qCont][3]);
         listaOpciones.add(qPractica[qCont][4]);
@@ -239,86 +272,120 @@ public class Quiz extends AppCompatActivity {
         listaOpciones.add(preguntaCompleta[5]);
 
         respuestaCorrecta = preguntaCompleta[2]; //Guardamos la respuesta correcta para su posterior validación
-
     }
 
     //onClick de las opciones/respuestas a la pregunta
-    public void validarOpciones(View view) {
+    public void validarOpciones(View view) throws InterruptedException {
         int id = view.getId();
+        if (tiempo.getText().toString().equals("0") && tvOpcion1.getText().toString().equals(respuestaCorrecta)) {
+            tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+            tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+        } else if (tiempo.getText().toString().equals("0") && tvOpcion2.getText().toString().equals(respuestaCorrecta)) {
+            tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+            tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+        } else if (tiempo.getText().toString().equals("0") && tvOpcion3.getText().toString().equals(respuestaCorrecta)) {
+            tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+            tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+        } else if (tiempo.getText().toString().equals("0") && tvOpcion4.getText().toString().equals(respuestaCorrecta)) {
+            tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+            tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+            tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+        } else switch (id) {
+                case R.id.tv_opcion1:
 
-        switch (id){
-            case R.id.tv_opcion1:
-                if (!respondido){ //Si no ha seleccionado ninguna respuesta antes...
-                    if(tvOpcion1.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
-                        correcto.start();
-                        aciertos++;
-                    }
-                    else{
-                        tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
 
-                        error.start();
-                        if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    if (!respondido) { //Si no ha seleccionado ninguna respuesta antes...
+                        btnSiguiente.setEnabled(true); //Activamos el botón Siguiente
+                        btnSiguiente.setBackgroundResource(R.drawable.next); //Mostramos el aspecto activado
+                        if (tvOpcion1.getText().toString().equals(respuestaCorrecta)) {
+                            tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
+                            correcto.start();
+                            aciertos++;
+                        } else {
+                            tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
+                            error.start();
+                            if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else if (tvOpcion3.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        }
+                        respondido = true;
                     }
-                    respondido=true;
-                }
-                break;
-            case R.id.tv_opcion2:
-                if (!respondido){
-                    if(tvOpcion2.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        correcto.start();
-                        aciertos++;
-                    }
-                    else{
-                        tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
-                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else if(tvOpcion3.getText().toString().equals(respuestaCorrecta)) tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                    }
-                    respondido=true;
-                }
-                break;
-            case R.id.tv_opcion3:
-                if (!respondido){
-                    if(tvOpcion3.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        aciertos++;
-                        correcto.start();
+                    break;
+                case R.id.tv_opcion2:
 
-                    }
-                    else{
-                        tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
-                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                    }
-                    respondido=true;
-                }
-                break;
-            case R.id.tv_opcion4:
-                if (!respondido){
-                    if(tvOpcion4.getText().toString().equals(respuestaCorrecta)){
-                        tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        aciertos++;
-                        correcto.start();
 
+                    if (!respondido) {
+                        btnSiguiente.setEnabled(true); //Activamos el botón Siguiente
+                        btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next)); //Mostramos aspecto activado
+                        if (tvOpcion2.getText().toString().equals(respuestaCorrecta)) {
+                            tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            correcto.start();
+                            aciertos++;
+                        } else {
+                            tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                            error.start();
+                            if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else if (tvOpcion3.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        }
+                        respondido = true;
                     }
-                    else{
-                        tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
-                        if(tvOpcion1.getText().toString().equals(respuestaCorrecta)) tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else if(tvOpcion2.getText().toString().equals(respuestaCorrecta)) tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        else tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    break;
+                case R.id.tv_opcion3:
+
+                    if (!respondido) {
+                        btnSiguiente.setEnabled(true); //Activamos el botón Siguiente
+                        btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next)); //Mostramos aspecto activado
+                        if (tvOpcion3.getText().toString().equals(respuestaCorrecta)) {
+                            tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            aciertos++;
+                            correcto.start();
+                        } else {
+                            tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                            error.start();
+                            if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        }
+                        respondido = true;
                     }
-                    respondido=true;
-                }
-                break;
-        }
+                    break;
+                case R.id.tv_opcion4:
+
+                    if (!respondido) {
+                        btnSiguiente.setEnabled(true); //Activamos el botón Siguiente
+                        btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next)); //Mostramos aspecto activado
+                        if (tvOpcion4.getText().toString().equals(respuestaCorrecta)) {
+                            tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            aciertos++;
+                            correcto.start();
+                        } else {
+                            tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                            error.start();
+                            if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
+                                tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                            else tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
+                        }
+                        respondido = true;
+                    }
+                    break;
+            }
+
     }
 
     public void mostarOpcionesAleatorias(){
@@ -340,18 +407,22 @@ public class Quiz extends AppCompatActivity {
     }
 
     public void btnNext(View view) {
+
         if (intentPractica){
             if (qCont<4){
+                btnSiguiente.setEnabled(false);
+                btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next_disable)); //Mostramos aspecto desactivado
                 respondido=false;
+                //Restablecemos el color natural de las respuestas (Eliminamos el verde y rojo del acierto-fallo)
                 tvOpcion1.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
                 tvOpcion2.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
                 tvOpcion3.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
                 tvOpcion4.setBackground(ContextCompat.getDrawable(Quiz.this, R.drawable.bordes));
                 mostrarPregunta();
-            }else mostrarPuntuacion();
+                startTimer();
+
+            }else mostrarPuntuacion(); //si no quedan más preguntas mostramos puntuación
         }
-
-
     }
 
     private void mostrarPuntuacion() {
