@@ -7,15 +7,16 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class QLocal extends AppCompatActivity {
     MediaPlayer mp;
+    Button atras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_local);
-
         mp = MediaPlayer.create(this, R.raw.boton_sound);
     }
 

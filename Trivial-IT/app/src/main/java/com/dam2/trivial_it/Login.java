@@ -19,11 +19,25 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Login extends AppCompatActivity {
     static Boolean encendida = true;
@@ -39,8 +53,8 @@ public class Login extends AppCompatActivity {
         edtUsuario=findViewById(R.id.etUsuario);
         edtPassword=findViewById(R.id.etpass);
         btnLogin=findViewById(R.id.btnLogin);
-
         recuperarPreferencias();
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +79,7 @@ public class Login extends AppCompatActivity {
         startActivity(IRegistro);
     }
     //METODO PARA VALIDAR EL USUARIO Y LA CONTRASEÑA CON LA DB
-    private void validarUsuario(String URL){
+    public void validarUsuario(String URL){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -94,18 +108,9 @@ public class Login extends AppCompatActivity {
                 return parametros;
             }
         };
-
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
-    //
-    //!!!!!!!!!!!!! INTENT ANTES DE la VERIFICACION DE USUARIO !!!!!!!!!!!!!!!!!!!!!!
-    //Inicia sesión y nos lleva al menú principal
-    /*public void intentPrincipal(View view){
-        Intent IPrincipal = new Intent(this, Principal.class);
-        startActivity(IPrincipal);
-    }*/
 
     //!!!!!!    METODO PARA GUARDAR EL USUARIO Y EVITAR TENER QUE VOLVER A LOGUEARSE AL CERRAR LA APP   !!!!!!!
     private void guardarPreferencias(){
@@ -124,14 +129,37 @@ public class Login extends AppCompatActivity {
         edtPassword.setText(preferences.getString("pass", ""));
     }
 
+    /////////////EJECUTAR SERVICIO
+    public void ejecutarServicio(String URL){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("nick", edtUsuario.getText().toString());
+                parametros.put("pass", edtPassword.getText().toString());
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    //////////MUSICA
     public void encenderMusica(){
         if(encendida==null){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.startService(miReproductor);
             encendida = true;
-
         }
-
     }
-
 }

@@ -40,6 +40,7 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     Button b_start;
     String res = null;
     String tablaCat="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().addFlags(1024);

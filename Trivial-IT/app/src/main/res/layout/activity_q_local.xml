@@ -89,7 +89,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/btnAtras"
         android:layout_width="102dp"
         android:layout_height="91dp"
         android:baselineAligned="false"

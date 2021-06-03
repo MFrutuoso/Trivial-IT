@@ -33,4 +33,5 @@
     <string name="confPass">Confirmar Contraseña</string>
     <string name="registro_pass">Contraseña</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="nombres">Nombres</string>
 </resources>

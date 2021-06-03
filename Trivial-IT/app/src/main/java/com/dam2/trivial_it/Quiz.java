@@ -109,7 +109,6 @@ public class Quiz extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) { //Int con el número total de las consultas. Solo necesitamos hasta 10 por el tamaño del array.
                     try {
                         jsonObject = response.getJSONObject(i);
-
                         int nResultados = response.length();
 
                         if(intentPractica){ //SI ES EL MODO ENTRENAMIENTO

@@ -40,4 +40,10 @@ public class Principal extends AppCompatActivity {
         startActivity(IAjustes);
         mp.start();
     }
+    public void btnEstadisticas(View view){
+        Intent IEstadistica = new Intent(this, Estadisticas.class);
+        startActivity(IEstadistica);
+        mp.start();
+    }
+
 }
