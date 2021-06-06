@@ -360,7 +360,6 @@ public class Quiz extends AppCompatActivity {
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta);
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-
                     }
                     stopTimer();
                     break;
@@ -394,12 +393,11 @@ public class Quiz extends AppCompatActivity {
                     }
                     stopTimer();
                     break;
-
-
             }
 
     }
 
+    //Método para mostrar las 4 posibles respuestas de forma aleatoria, así el jugador no recordará la posición correcta
     public void mostarOpcionesAleatorias(){
         numAleatorio = (int) Math.floor(Math.random()*((listaOpciones.size()-1)-0+1)+0);  // Genera un numero aleatorio entre 0 y el tamaño del ArrayList.
         tvOpcion1.setText(listaOpciones.get(numAleatorio)); //Mostramos en la 1a opción la posición aleatoria del ArrayList
@@ -416,6 +414,8 @@ public class Quiz extends AppCompatActivity {
         tvOpcion4.setText(listaOpciones.get(0));
         listaOpciones.remove(0);
     }
+
+    //Metodo ejecutado al pulsar en el botón de siguiente pregunta
     public void btnNext(View view) {
 
         if (intentPractica){
@@ -434,12 +434,11 @@ public class Quiz extends AppCompatActivity {
                 mostrarPregunta();
                 tiempo.setText("");// Cuando pase de pregunta se oculta el reloj
 
-
-
             }else mostrarPuntuacion(); //si no quedan más preguntas mostramos puntuación
         }
     }
 
+    //Metodo para mostrar la puntuación al finalizar la ronda de 5 preguntas del modo entrenamiento
     private void mostrarPuntuacion() {
         String mensajeAlert="Aciertos: "+aciertos+"\nFallos: "+(5-aciertos);
         String tituloAlert ="Resultado del entrenamiento";
@@ -455,10 +454,5 @@ public class Quiz extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    public void btnAtras(View view) {
-        Intent i = new Intent(this, ModoDeJuego.class);
-        startActivity(i);
     }
 }
