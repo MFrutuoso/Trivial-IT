@@ -90,6 +90,7 @@
             android:gravity="center"
             android:onClick="validarOpciones"
             android:text="Opcion 1"
+            android:clickable="true"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp"
@@ -99,7 +100,8 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.475" />
+            app:layout_constraintVertical_bias="0.475"
+            android:focusable="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -112,6 +114,7 @@
             android:background="@drawable/bordes"
             android:fontFamily="casual"
             android:gravity="center"
+            android:clickable="true"
             android:onClick="validarOpciones"
             android:text="Opcion 2"
             android:textAlignment="center"
@@ -123,7 +126,8 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.628" />
+            app:layout_constraintVertical_bias="0.628"
+            android:focusable="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -138,6 +142,7 @@
             android:gravity="center"
             android:onClick="validarOpciones"
             android:text="Opcion 3"
+            android:clickable="true"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp"
@@ -147,7 +152,8 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.781" />
+            app:layout_constraintVertical_bias="0.781"
+            android:focusable="true" />
 
         <Space
             android:layout_width="match_parent"
@@ -163,6 +169,7 @@
             android:onClick="validarOpciones"
             android:text="Opcion 4"
             android:textAlignment="center"
+            android:clickable="true"
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -171,7 +178,8 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.93" />
+            app:layout_constraintVertical_bias="0.93"
+            android:focusable="true" />
 
         <Space
             android:layout_width="match_parent"

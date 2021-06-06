@@ -41,9 +41,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Login extends AppCompatActivity {
     static Boolean encendida = true;
-    EditText edtUsuario, edtPassword;
+
+    public EditText edtUsuario, edtPassword;
     Button btnLogin;
-    String nick, pass;
+    public static String nick, pass;
 
 
     @Override
@@ -54,6 +55,7 @@ public class Login extends AppCompatActivity {
         edtPassword=findViewById(R.id.etpass);
         btnLogin=findViewById(R.id.btnLogin);
         recuperarPreferencias();
+
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +80,7 @@ public class Login extends AppCompatActivity {
         Intent IRegistro = new Intent(this, Registro.class);
         startActivity(IRegistro);
     }
+
     //METODO PARA VALIDAR EL USUARIO Y LA CONTRASEÑA CON LA DB
     public void validarUsuario(String URL){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -101,7 +104,7 @@ public class Login extends AppCompatActivity {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //COMPARAMOS EL NICK Y LA PASS DE LA BASE DE DATOS CON LOS INTRODUCIDOS EN LA APLICACION, (edtUsuario, edtPassword = id de los editText) (nick, pass = campos de la BD)
+                //COMPARAMOS EL NICK Y LA PASS DE LA BASE DE DATOS CON LOS INTRODUCIDOS EN LA APLICACION (nick, pass = campos de la BD)
                 Map<String, String> parametros=new HashMap<String, String>();
                 parametros.put("nick", nick);
                 parametros.put("pass", pass);
@@ -111,6 +114,8 @@ public class Login extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+
 
     //!!!!!!    METODO PARA GUARDAR EL USUARIO Y EVITAR TENER QUE VOLVER A LOGUEARSE AL CERRAR LA APP   !!!!!!!
     private void guardarPreferencias(){
@@ -129,32 +134,6 @@ public class Login extends AppCompatActivity {
         edtUsuario.setText(preferences.getString("nick", ""));
         edtPassword.setText(preferences.getString("pass", ""));
     }
-
-    /////////////EJECUTAR SERVICIO
-    public void ejecutarServicio(String URL){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("nick", edtUsuario.getText().toString());
-                parametros.put("pass", edtPassword.getText().toString());
-                return parametros;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
     //////////MUSICA
     public void encenderMusica(){
         if(encendida==null){
