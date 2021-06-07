@@ -25,42 +25,42 @@
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/siooff" />
+            android:src="@drawable/categorias_off_si" />
 
         <ImageView
             android:id="@+id/img_ProgramacionJ1"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/progooff" />
+            android:src="@drawable/categorias_off_prog" />
 
         <ImageView
             android:id="@+id/img_BaseDeDatosJ1"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/dboff" />
+            android:src="@drawable/categorias_off_db" />
 
         <ImageView
             android:id="@+id/img_EntornosJ1"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/entornosoof" />
+            android:src="@drawable/categorias_off_entornos" />
 
         <ImageView
             android:id="@+id/img_HardwareJ1"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/hwooff" />
+            android:src="@drawable/categorias_off_hw" />
 
         <ImageView
             android:id="@+id/img_ProgramacionWebJ1"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/weboof" />
+            android:src="@drawable/categorias_off_web" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,42 +79,42 @@
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/siooff" />
+            android:src="@drawable/categorias_off_si" />
 
         <ImageView
             android:id="@+id/img_ProgramacionJ2"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/progooff" />
+            android:src="@drawable/categorias_off_prog" />
 
         <ImageView
             android:id="@+id/img_BaseDeDatosJ2"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/dboff" />
+            android:src="@drawable/categorias_off_db" />
 
         <ImageView
             android:id="@+id/img_EntornosJ2"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/entornosoof" />
+            android:src="@drawable/categorias_off_entornos" />
 
         <ImageView
             android:id="@+id/img_HardwareJ2"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/hwooff" />
+            android:src="@drawable/categorias_off_hw" />
 
         <ImageView
             android:id="@+id/img_ProgramacionWebJ2"
             android:layout_width="26dp"
             android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/weboof" />
+            android:src="@drawable/categorias_off_web" />
     </LinearLayout>
 
     <ImageView
@@ -206,12 +206,12 @@
         android:minWidth="100dp"
         android:text=""
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/rouletteImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.925"
+        app:layout_constraintVertical_bias="0.188"
         tools:ignore="MissingConstraints" />
 
     <ImageView

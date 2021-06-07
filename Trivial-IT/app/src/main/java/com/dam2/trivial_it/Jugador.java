@@ -1,15 +1,20 @@
 package com.dam2.trivial_it;
 
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Switch;
+
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Jugador {
+public class Jugador implements Serializable {
     private String nick;
     private boolean [] quesitos = new boolean[6];
     private int preguntasAcertadas;
     private int preguntasFalladas;
     private int puntuacionTotal;
 
-    public Jugador(String nick) {
+    public Jugador(String nick, ImageView[] imgQuesitos) {
         this.nick = nick;
         this.quesitos[0] = false;
         this.quesitos[1] = false;
@@ -34,24 +39,24 @@ public class Jugador {
         return quesitos;
     }
 
-    public void setQuesitos(boolean[] quesitos) {
-        this.quesitos = quesitos;
+    public void setQuesitos(int categoria, boolean quesito) {
+        this.quesitos[categoria]=quesito;
     }
 
     public int getPreguntasAcertadas() {
         return preguntasAcertadas;
     }
 
-    public void setPreguntasAcertadas(int preguntasAcertadas) {
-        this.preguntasAcertadas = preguntasAcertadas;
+    public void setPreguntasAcertadas() {
+        this.preguntasAcertadas++;
     }
 
     public int getPreguntasFalladas() {
         return preguntasFalladas;
     }
 
-    public void setPreguntasFalladas(int preguntasFalladas) {
-        this.preguntasFalladas = preguntasFalladas;
+    public void setPreguntasFalladas() {
+        this.preguntasFalladas++;
     }
 
     public int getPuntuacionTotal() {
@@ -73,7 +78,7 @@ public class Jugador {
     }
 
     public int calcularPuntuacionTotal(){
-
+        puntuacionTotal=0;
         puntuacionTotal+=preguntasAcertadas*100;
         puntuacionTotal-=preguntasFalladas*50;
         puntuacionTotal+=contarQuesitos()*500;
@@ -84,8 +89,10 @@ public class Jugador {
     public String resultadosJugador() {
         return "\nJugador: " + nick +
                 "\n\tCategorías completadas: " + contarQuesitos() +
-                "\n\tPreguntas Acertadas: " + preguntasAcertadas +
-                "\n\tPreguntas Falladas: " + preguntasFalladas +
-                "\n\tPuntuacion Total: " + calcularPuntuacionTotal();
+                "\n\t\tPreguntas Acertadas: " + preguntasAcertadas +
+                "\n\t\tPreguntas Falladas: " + preguntasFalladas +
+                "\n\t\tPuntuacion Total: " + calcularPuntuacionTotal();
     }
+
+
 }

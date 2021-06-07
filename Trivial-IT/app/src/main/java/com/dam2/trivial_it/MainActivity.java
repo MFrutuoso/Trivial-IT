@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                  */
                 SharedPreferences preferences = getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
                 boolean sesion=preferences.getBoolean("sesion", false);
+                Login.nick = preferences.getString("nick", "Jugador 1");
                 Login.encendida = preferences.getBoolean("encendida", true); //Obtenemos pref. del user en la musica
                 if (Login.encendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
                 Log.e("Login.encendida",""+Login.encendida);
