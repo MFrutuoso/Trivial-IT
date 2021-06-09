@@ -16,8 +16,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Principal extends AppCompatActivity {
     MediaPlayer mp;
-    MediaPlayer fondo;
-    Button close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

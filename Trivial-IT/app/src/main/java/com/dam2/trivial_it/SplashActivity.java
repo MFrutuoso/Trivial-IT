@@ -26,19 +26,21 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /*
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-                finish();
-                 */
+
                 SharedPreferences preferences = getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+
                 boolean sesion=preferences.getBoolean("sesion", false);
+
                 Login.nick = preferences.getString("nick", "Jugador 1");
+
                 Ajustes.musicaFondoEncendida = preferences.getBoolean("musicaFondoEncendida", true); //Obtenemos pref. del user en la musica
+
                 Ajustes.efectosEncendidos = preferences.getBoolean("efectosEncendidos", true); //Obtenemos pref. del user en los efectos
+
                 if (Ajustes.musicaFondoEncendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
+
                 Log.e("Ajustes.musicFondEncend",""+Ajustes.musicaFondoEncendida);
-                Ajustes.efectosEncendidos = true; //Eliminar linea cuando esté implementado el Ajuste de activar/Desactivar efectos sonoros
+
                 if(Ajustes.musicaFondoEncendida==null || Ajustes.musicaFondoEncendida == true){ //Enciende la musica por primera vez para toda la app
                     encenderMusica();
                 }
@@ -55,6 +57,7 @@ public class SplashActivity extends AppCompatActivity {
             };
         }, DURACION_SPLASH);
     }
+
     //Método para encender la música
     public void encenderMusica(){
         if(Ajustes.musicaFondoEncendida){

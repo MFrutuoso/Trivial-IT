@@ -69,6 +69,7 @@
         android:id="@+id/btn_PlayEfecto"
         android:layout_width="70dp"
         android:layout_height="31dp"
+        android:onClick="BtnPlayEfecto"
         android:background="@drawable/on"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
