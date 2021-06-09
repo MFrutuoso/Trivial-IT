@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PruebaBD"></activity>
+        <activity android:name=".Reglas"></activity>
+        <activity android:name=".ComoJugar" />
+        <activity android:name=".PruebaBD" />
         <activity android:name=".Registro" />
         <activity android:name=".SplashActivity">
             <intent-filter>

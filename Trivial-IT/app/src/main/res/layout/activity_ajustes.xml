@@ -4,70 +4,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:background="@drawable/fondo3"
+    android:background="@drawable/adj"
     tools:context=".Ajustes">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309">
-
-        <TextView
-            android:id="@+id/tv_musica"
-            android:layout_width="138dp"
-            android:layout_height="53dp"
-            android:fontFamily="casual"
-            android:text="@string/musica"
-            android:textColor="#000"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-        <Space
-            android:layout_width="50dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_PlayMusica"
-            android:layout_width="52dp"
-            android:layout_height="50dp"
-            android:background="@drawable/pause"
-            android:onClick="btnPlayMusica" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_Ajustes"
-        android:layout_width="343dp"
-        android:layout_height="136dp"
-        android:fontFamily="casual"
-        android:text="@string/ajustess"
-        android:textSize="90sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052" />
-
     <Button
         android:id="@+id/btnCerrarSesion"
-        android:layout_width="250dp"
-        android:layout_height="44dp"
-        android:text="@string/cerrar_sesi_n"
+        android:layout_width="134dp"
+        android:layout_height="123dp"
+        android:background="@drawable/cerrar_sesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.873" />
+        app:layout_constraintVertical_bias="0.952" />
+
+    <Button
+        android:id="@+id/btnJugar"
+        android:layout_width="311dp"
+        android:layout_height="61dp"
+        android:background="@drawable/ajuste"
+        android:text="¿Cómo jugar?"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_musica2"
+        android:layout_width="211dp"
+        android:layout_height="51dp"
+        android:background="@drawable/ajuste"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="Efectos de sonido"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.392" />
+
+    <Button
+        android:id="@+id/btn_PlayMusica"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:background="@drawable/on"
+        android:onClick="btnPlayMusica"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.311" />
+
+    <Button
+        android:id="@+id/btn_PlayEfecto"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:background="@drawable/on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.392" />
+
+    <TextView
+        android:id="@+id/tv_musica"
+        android:layout_width="211dp"
+        android:layout_height="51dp"
+        android:background="@drawable/ajuste"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="@string/musica"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.305" />
+
+    <Button
+        android:id="@+id/btnReglas"
+        android:layout_width="311dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ajuste"
+        android:text="Reglas"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.605" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="223dp"
+        android:layout_height="174dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/ajustess" />
+
+    <ImageView
+        android:id="@+id/idioma"
+        android:layout_width="67dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/esp" />
+
+    <Button
+        android:id="@+id/btnAtras"
+        android:layout_width="94dp"
+        android:layout_height="91dp"
+        android:background="@drawable/atras"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763"
+        app:srcCompat="@drawable/atras" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
