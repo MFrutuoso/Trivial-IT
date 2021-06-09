@@ -40,12 +40,10 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class Login extends AppCompatActivity {
-    static Boolean encendida = true;
 
     public EditText edtUsuario, edtPassword;
     Button btnLogin;
     public static String nick, pass;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +52,7 @@ public class Login extends AppCompatActivity {
         edtUsuario=findViewById(R.id.etUsuario);
         edtPassword=findViewById(R.id.etpass);
         btnLogin=findViewById(R.id.btnLogin);
-        recuperarPreferencias();
-
-
+        recuperarPreferencias(); //Prescindible¿?¿?¿?
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +68,10 @@ public class Login extends AppCompatActivity {
 
             }
         });
-        if(encendida==null){ //Enciende la musica por primera vez para toda la app
-            encenderMusica();
-        }
+
     }
+
+    //Botón para acceder al Regstro de un nuevo usuario
     public void btnRegistro(View view){
         Intent IRegistro = new Intent(this, Registro.class);
         startActivity(IRegistro);
@@ -116,7 +112,6 @@ public class Login extends AppCompatActivity {
     }
 
 
-
     //!!!!!!    METODO PARA GUARDAR EL USUARIO Y EVITAR TENER QUE VOLVER A LOGUEARSE AL CERRAR LA APP   !!!!!!!
     private void guardarPreferencias(){
         SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
@@ -124,7 +119,6 @@ public class Login extends AppCompatActivity {
         editor.putString("nick", nick);
         editor.putString("pass", pass);
         editor.putBoolean("sesion", true);
-        editor.putBoolean("encendida", Login.encendida); //Guardamos el estado de la musica
         editor.commit();
     }
 
@@ -133,13 +127,5 @@ public class Login extends AppCompatActivity {
         SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         edtUsuario.setText(preferences.getString("nick", ""));
         edtPassword.setText(preferences.getString("pass", ""));
-    }
-    //////////MUSICA
-    public void encenderMusica(){
-        if(encendida==null){
-            Intent miReproductor = new Intent(this, ServicioMusica.class);
-            this.startService(miReproductor);
-            encendida = true;
-        }
     }
 }

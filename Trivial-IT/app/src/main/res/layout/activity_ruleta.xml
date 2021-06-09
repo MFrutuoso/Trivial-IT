@@ -158,7 +158,7 @@
         app:layout_constraintStart_toEndOf="@+id/img_Panel_J1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/jugador" />
+        app:srcCompat="@drawable/jugador_off" />
 
     <ImageView
         android:id="@+id/img_Panel_J1"
@@ -171,7 +171,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/jugador" />
+        app:srcCompat="@drawable/jugador_off" />
 
     <TextView
         android:id="@+id/tv_J2"
@@ -241,5 +241,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/atras" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ganar"
+        android:onClick="btnGanar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

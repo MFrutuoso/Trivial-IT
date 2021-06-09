@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -34,6 +35,7 @@ class Partida implements Serializable {
     Jugador j1, j2;
     int turno;
     boolean continuaTurno=false;
+    boolean empiezaPartida=false;
 
     public Partida(Jugador j1, Jugador j2) {
         this.j1 = j1;
@@ -60,6 +62,8 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     ImageView[] imgQuesitosJ1 = new ImageView[6];
     ImageView[] imgQuesitosJ2 = new ImageView[6];
     String ganador="";
+    ImageView imgPanelJ1, imgPanelJ2;
+
     public void encenderQuesito(ImageView[] imgQuesitos, int categoria){
         switch (categoria){
             case 0: imgQuesitos[0].setImageResource(R.drawable.categorias_on_si);
@@ -96,12 +100,12 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         }
     }
 
-    public void mostrarTurno(){
+    public void mostrarTurnoAlEmpezar(){
         String jugador="";
         String tituloAlert ="TURNO";
         if (partida.turno==1) jugador=partida.j1.getNick();
         else jugador=partida.j2.getNick();
-        String mensajeAlert="\nTurno de "+jugador+" (J"+partida.turno+")";
+        String mensajeAlert="\nComienza tirando el jugador: "+jugador+" (J"+partida.turno+")";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensajeAlert)
@@ -113,6 +117,15 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public void mostrarTurno(){
+
+        if (partida.turno==1){
+            imgPanelJ1.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.jugador));
+        }
+        else {
+            imgPanelJ2.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.jugador));
+        }
     }
 
     public void mostrarComodin(){
@@ -149,6 +162,10 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         requestWindowFeature(1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruleta);
+
+        imgPanelJ1 = findViewById(R.id.img_Panel_J1);
+        imgPanelJ2 = findViewById(R.id.img_Panel_J2);
+
 
         //Establecemos los nombres de los jugadores en los paneles correspondientes
         TextView tvJ1 = findViewById(R.id.tv_J1);
@@ -204,8 +221,8 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
                 ganador=partida.j2.getNick();
                 mostrarGanador();
             }
-            System.out.println(partida.j1.resultadosJugador());
-            System.out.println(partida.j2.resultadosJugador());
+//            System.out.println(partida.j1.resultadosJugador());
+//            System.out.println(partida.j2.resultadosJugador());
 
         }else { //Si no viene de quiz
 
@@ -216,8 +233,14 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
             tvJ2.setText(j2.getNick());
 
             partida = new Partida(j1,j2); //Se instancia un objeto partida.
+
+            partida.empiezaPartida=true;
+            if(partida.empiezaPartida) {
+                mostrarTurnoAlEmpezar();
+                partida.empiezaPartida=false;
+            }
         }
-        if(!ganador.equalsIgnoreCase("")) mostrarTurno();
+        mostrarTurno();
         textView.setText("El turno es de J"+partida.turno);
     }
 
@@ -329,5 +352,10 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void btnGanar(View view) {
+        for (int i =0; i<partida.j1.getQuesitos().length; i++)
+        partida.j1.setQuesitos(i,true);
     }
 }

@@ -13,7 +13,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     private final int DURACION_SPLASH = 5400;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,15 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
                 boolean sesion=preferences.getBoolean("sesion", false);
                 Login.nick = preferences.getString("nick", "Jugador 1");
-                Login.encendida = preferences.getBoolean("encendida", true); //Obtenemos pref. del user en la musica
-                if (Login.encendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
-                Log.e("Login.encendida",""+Login.encendida);
+                Ajustes.musicaFondoEncendida = preferences.getBoolean("musicaFondoEncendida", true); //Obtenemos pref. del user en la musica
+                Ajustes.efectosEncendidos = preferences.getBoolean("efectosEncendidos", true); //Obtenemos pref. del user en los efectos
+                if (Ajustes.musicaFondoEncendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
+                Log.e("Ajustes.musicFondEncend",""+Ajustes.musicaFondoEncendida);
+
+                if(Ajustes.musicaFondoEncendida==null || Ajustes.musicaFondoEncendida == true){ //Enciende la musica por primera vez para toda la app
+                    encenderMusica();
+                }
+
                 if(sesion){
                     Intent intent = new Intent(getApplicationContext(), Principal.class);
                     startActivity(intent);
@@ -51,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
     }
     //Método para encender la música
     public void encenderMusica(){
-        if(Login.encendida){
+        if(Ajustes.musicaFondoEncendida){
             Intent miReproductor = new Intent(this, ServicioMusica.class);
             this.startService(miReproductor);
-            Login.encendida = true;
+            Ajustes.musicaFondoEncendida = true;
         }
     }
 }
