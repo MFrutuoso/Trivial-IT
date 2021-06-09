@@ -42,7 +42,6 @@ import java.util.concurrent.Delayed;
 
 public class Quiz extends AppCompatActivity {
 
-
     //Declaración de variables y objetos
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador, tiempo;
     int contadorPregunta=0;
@@ -267,11 +266,11 @@ public class Quiz extends AppCompatActivity {
                     btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next)); //Mostramos aspecto activado
                     if (tvOpcion1.getText().toString().equals(respuestaCorrecta)) {
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta); //Verde
-                        correcto.start();
+                        if (Ajustes.efectosEncendidos) correcto.start();
                         acierto=true;
                     } else {
                         tvOpcion1.setBackgroundResource(R.color.colorRespuestaIncorrecta); //Rojo
-                        error.start();
+                        if (Ajustes.efectosEncendidos) error.start();
                         if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
                             tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if (tvOpcion3.getText().toString().equals(respuestaCorrecta))
@@ -289,11 +288,11 @@ public class Quiz extends AppCompatActivity {
 
                     if (tvOpcion2.getText().toString().equals(respuestaCorrecta)) {
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaCorrecta);
-                        correcto.start();
+                        if (Ajustes.efectosEncendidos) correcto.start();
                         acierto=true;
                     } else {
                         tvOpcion2.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
+                        if (Ajustes.efectosEncendidos) error.start();
                         if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
                             tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if (tvOpcion3.getText().toString().equals(respuestaCorrecta))
@@ -312,10 +311,10 @@ public class Quiz extends AppCompatActivity {
                     if (tvOpcion3.getText().toString().equals(respuestaCorrecta)) {
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         acierto=true;
-                        correcto.start();
+                        if (Ajustes.efectosEncendidos) correcto.start();
                     } else {
                         tvOpcion3.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
+                        if (Ajustes.efectosEncendidos) error.start();
                         if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
                             tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
@@ -334,10 +333,10 @@ public class Quiz extends AppCompatActivity {
                     if (tvOpcion4.getText().toString().equals(respuestaCorrecta)) {
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         acierto=true;
-                        correcto.start();
+                        if (Ajustes.efectosEncendidos) correcto.start();
                     } else {
                         tvOpcion4.setBackgroundResource(R.color.colorRespuestaIncorrecta);
-                        error.start();
+                        if (Ajustes.efectosEncendidos) error.start();
                         if (tvOpcion1.getText().toString().equals(respuestaCorrecta))
                             tvOpcion1.setBackgroundResource(R.color.colorRespuestaCorrecta);
                         else if (tvOpcion2.getText().toString().equals(respuestaCorrecta))
@@ -394,11 +393,23 @@ public class Quiz extends AppCompatActivity {
                     acierto=false;
                     if (partida.turno == 1){
                         partida.j1.setPreguntasAcertadas(); //Se suma un acierto
-                        partida.j1.setQuesitos(Integer.parseInt(preguntaCompleta[6]), true); //Se añade quesito
+                        if (preguntaCompleta[6] != null) { //Validamos que en el momento del Parsear el Integer no sea nulo
+                            try {
+                                partida.j1.setQuesitos(Integer.parseInt(preguntaCompleta[6]), true); //Se añade quesito
+                            } catch(NumberFormatException e) {
+                                Log.e("Integer.parseInt","NumberFormatException, debe estar recibiendo un id Nulo, revisar");
+                            }
+                        }
                     }
                     else{
                         partida.j2.setPreguntasAcertadas(); //Se suma un acierto
-                        partida.j2.setQuesitos(Integer.parseInt(preguntaCompleta[6]), true); //Se añade quesito
+                        if (preguntaCompleta[6] != null) { //Validamos que en el momento del Parsear el Integer no sea nulo
+                            try {
+                                partida.j2.setQuesitos(Integer.parseInt(preguntaCompleta[6]), true); //Se añade quesito
+                            } catch(NumberFormatException e) {
+                                Log.e("Integer.parseInt","NumberFormatException, debe estar recibiendo un id Nulo, revisar");
+                            }
+                        }
                     }
 
                 }else{ //Si falla la pregunta

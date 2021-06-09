@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
                 Ajustes.efectosEncendidos = preferences.getBoolean("efectosEncendidos", true); //Obtenemos pref. del user en los efectos
                 if (Ajustes.musicaFondoEncendida) encenderMusica(); //Si tenía la musica ON, al entrar la encendemos
                 Log.e("Ajustes.musicFondEncend",""+Ajustes.musicaFondoEncendida);
-
+                Ajustes.efectosEncendidos = true; //Eliminar linea cuando esté implementado el Ajuste de activar/Desactivar efectos sonoros
                 if(Ajustes.musicaFondoEncendida==null || Ajustes.musicaFondoEncendida == true){ //Enciende la musica por primera vez para toda la app
                     encenderMusica();
                 }

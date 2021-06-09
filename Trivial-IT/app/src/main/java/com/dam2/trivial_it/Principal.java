@@ -23,27 +23,27 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        mp = MediaPlayer.create(this, R.raw.boton_sound);
+        if (Ajustes.efectosEncendidos) mp = MediaPlayer.create(this, R.raw.boton_sound);
     }
     public void btnRuleta(View view){
         Intent intent = new Intent(this, Ruleta.class);
         startActivity(intent);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
     public void btnNuevaPartida(View view){
         Intent IRuleta = new Intent(this, ModoDeJuego.class);
         startActivity(IRuleta);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
     public void btnAjustes(View view){
         Intent IAjustes = new Intent(this, Ajustes.class);
         startActivity(IAjustes);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
     public void btnEstadisticas(View view){
         Intent IEstadistica = new Intent(this, Estadisticas.class);
         startActivity(IEstadistica);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
 
 }

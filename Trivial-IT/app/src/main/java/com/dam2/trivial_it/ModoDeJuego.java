@@ -15,7 +15,9 @@ public class ModoDeJuego extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modo_de_juego);
-        mp = MediaPlayer.create(this, R.raw.boton_sound);
+
+        if (Ajustes.efectosEncendidos)
+            mp = MediaPlayer.create(this, R.raw.boton_sound);
 
         Button btnMultijugador = findViewById(R.id.btn_Multijugador);
         btnMultijugador.setEnabled(false); //Desabilitado el botón Multijugador hasta que esté disponible el modo de juego
@@ -24,13 +26,13 @@ public class ModoDeJuego extends AppCompatActivity {
     public void btnRuleta(View view){
         Intent intent = new Intent(this, Ruleta.class);
         startActivity(intent);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
 
     public void btnQLocal(View view) {
         Intent intent = new Intent(this, QLocal.class);
         startActivity(intent);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp.start();
     }
 
     public void btn_Atras(View view) {

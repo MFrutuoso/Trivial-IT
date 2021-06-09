@@ -268,8 +268,8 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     public void onAnimationStart(Animation animation){
         this.blnButtonRotation=false;
         b_start.setVisibility(View.VISIBLE);
-        mp = MediaPlayer.create(this, R.raw.sonido);
-        mp.start();
+        if (Ajustes.efectosEncendidos) mp = MediaPlayer.create(this, R.raw.sonido);
+        if (Ajustes.efectosEncendidos) mp.start();
     }
 
     @Override

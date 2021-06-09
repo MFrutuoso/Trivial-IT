@@ -17,7 +17,7 @@ public class QLocal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q_local);
-        mp = MediaPlayer.create(this, R.raw.boton_sound);
+        if (Ajustes.efectosEncendidos) mp = MediaPlayer.create(this, R.raw.boton_sound);
     }
 
     public void btnTematica(View view) {
@@ -29,32 +29,32 @@ public class QLocal extends AppCompatActivity {
         Log.e("boton", "boton pulsado");
         switch (id){
             case R.id.btn1: //Base de datos
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=1;
                 tablaCat="basededatos";
                 break;
             case R.id.btn2: //Programación
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=2;
                 tablaCat="programacion";
                 break;
             case R.id.btn3: //Programación Web
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=3;
                 tablaCat="programacionweb";
                 break;
             case R.id.btn4: //Sistemas informáticos
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=4;
                 tablaCat="sistemasinformaticos";
                 break;
             case R.id.btn5: //Entornos de desarrollo
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=5;
                 tablaCat="entornosdedesarrollo";
                 break;
             case R.id.btn6: //Hardware
-                mp.start();
+                if (Ajustes.efectosEncendidos) mp.start();
                 categoria=6;
                 tablaCat="hardware";
                 break;
