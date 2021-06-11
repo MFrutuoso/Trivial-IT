@@ -39,7 +39,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Login extends AppCompatActivity {
+public class Login extends ActivityBase {
 
     public EditText edtUsuario, edtPassword;
     Button btnLogin;
@@ -75,6 +75,7 @@ public class Login extends AppCompatActivity {
     public void btnRegistro(View view){
         Intent IRegistro = new Intent(this, Registro.class);
         startActivity(IRegistro);
+        finish();
     }
 
     //METODO PARA VALIDAR EL USUARIO Y LA CONTRASEÑA CON LA DB

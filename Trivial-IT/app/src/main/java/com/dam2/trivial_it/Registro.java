@@ -22,7 +22,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Registro extends AppCompatActivity {
+public class Registro extends ActivityBase {
         EditText  etRegistroNick, etRegistroPass, etRegistroPass2;
         Button btnConfRegistro;
 
@@ -44,6 +44,7 @@ public class Registro extends AppCompatActivity {
                     ejecutarRegistro("https://trivialit2021.000webhostapp.com/nuevoUsuario.php");
                         Intent IRegistro = new Intent(Registro.this, Login.class);
                         startActivity(IRegistro);
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
                 }

@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Principal extends AppCompatActivity {
+public class Principal extends ActivityBase {
     MediaPlayer mp;
 
     @Override
@@ -32,16 +32,19 @@ public class Principal extends AppCompatActivity {
         Intent IRuleta = new Intent(this, ModoDeJuego.class);
         startActivity(IRuleta);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
     public void btnAjustes(View view){
         Intent IAjustes = new Intent(this, Ajustes.class);
         startActivity(IAjustes);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
     public void btnEstadisticas(View view){
         Intent IEstadistica = new Intent(this, Estadisticas.class);
         startActivity(IEstadistica);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
 
 }

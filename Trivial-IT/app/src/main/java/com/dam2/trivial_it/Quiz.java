@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Delayed;
 
-public class Quiz extends AppCompatActivity {
+public class Quiz extends ActivityBase {
 
     //Declaración de variables y objetos
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador, tiempo;
@@ -428,6 +428,7 @@ public class Quiz extends AppCompatActivity {
                 Intent intent = new Intent(this, Ruleta.class);
                 intent.putExtra("partida",partida);
                 startActivity(intent);
+                finish();
             }
         }
     }
@@ -438,11 +439,14 @@ public class Quiz extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensajeAlert)
-                .setTitle(tituloAlert);
+                .setTitle(tituloAlert)
+                .setCancelable(false);
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(Quiz.this, QLocal.class);
                 startActivity(intent);
+                finish();
             }
         });
         AlertDialog dialog = builder.create();

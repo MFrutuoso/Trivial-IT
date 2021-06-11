@@ -28,15 +28,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dam2.trivial_it.dialogos.Jugador2NuevaPartidaDialog;
+
 import java.io.Serializable;
 import java.util.Random;
 
+//Clase Partida para el manejo de la misma
 class Partida implements Serializable {
     Jugador j1, j2;
     int turno;
     boolean continuaTurno=false;
     boolean empiezaPartida=false;
 
+    //Constructor de Partida
     public Partida(Jugador j1, Jugador j2) {
         this.j1 = j1;
         this.j2 = j2;
@@ -45,7 +49,7 @@ class Partida implements Serializable {
     }
 }
 
-public class Ruleta extends AppCompatActivity implements Animation.AnimationListener {
+public class Ruleta extends ActivityBase implements Animation.AnimationListener, Jugador2NuevaPartidaDialog.Jugador2NuevaPartidaDialogListener {
     boolean blnButtonRotation = true;
     int intNumber = 7;
     long IngDegrees = 0;
@@ -63,7 +67,9 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
     ImageView[] imgQuesitosJ2 = new ImageView[6];
     String ganador="";
     ImageView imgPanelJ1, imgPanelJ2;
+    String nombreJ2="";
 
+    //Método para encender visualmente los quesitos en posesión
     public void encenderQuesito(ImageView[] imgQuesitos, int categoria){
         switch (categoria){
             case 0: imgQuesitos[0].setImageResource(R.drawable.categorias_on_si);
@@ -82,34 +88,37 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         }
     }
 
-    public void apagarQuesito(ImageView[] imgQuesitos, int categoria){
-        switch (categoria){
-            case 0: imgQuesitos[0].setImageResource(R.drawable.categorias_off_si);
-                break;
-            case 1: imgQuesitos[1].setImageResource(R.drawable.categorias_off_prog);
-                break;
-            case 2: imgQuesitos[2].setImageResource(R.drawable.categorias_off_db);
-                break;
-            case 3: imgQuesitos[3].setImageResource(R.drawable.categorias_off_entornos);
-                break;
-            case 4: imgQuesitos[4].setImageResource(R.drawable.categorias_off_hw);
-                break;
-            case 5: imgQuesitos[5].setImageResource(R.drawable.categorias_off_web);
-                break;
-            default:Log.e("apagarQuesito()","Ocurrió un error en este método");
-        }
-    }
+//Método no utilizado debido a que cada vez que regresa desde Quiz, se marcan unicamente los quesitos mantenidos
+//    public void apagarQuesito(ImageView[] imgQuesitos, int categoria){
+//        switch (categoria){
+//            case 0: imgQuesitos[0].setImageResource(R.drawable.categorias_off_si);
+//                break;
+//            case 1: imgQuesitos[1].setImageResource(R.drawable.categorias_off_prog);
+//                break;
+//            case 2: imgQuesitos[2].setImageResource(R.drawable.categorias_off_db);
+//                break;
+//            case 3: imgQuesitos[3].setImageResource(R.drawable.categorias_off_entornos);
+//                break;
+//            case 4: imgQuesitos[4].setImageResource(R.drawable.categorias_off_hw);
+//                break;
+//            case 5: imgQuesitos[5].setImageResource(R.drawable.categorias_off_web);
+//                break;
+//            default:Log.e("apagarQuesito()","Ocurrió un error en este método");
+//        }
+//    }
 
+    //Se muestra el turno 1 sola vez, al iniciar la partida.
     public void mostrarTurnoAlEmpezar(){
         String jugador="";
         String tituloAlert ="TURNO";
         if (partida.turno==1) jugador=partida.j1.getNick();
-        else jugador=partida.j2.getNick();
+        else jugador=nombreJ2;
         String mensajeAlert="\nComienza tirando el jugador: "+jugador+" (J"+partida.turno+")";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensajeAlert)
-                .setTitle(tituloAlert);
+                .setTitle(tituloAlert)
+                .setCancelable(false);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 return;
@@ -118,8 +127,9 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    public void mostrarTurno(){
 
+    //Método para mostrar el turno visualmente en el activity
+    public void mostrarTurno(){
         if (partida.turno==1){
             imgPanelJ1.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.jugador));
         }
@@ -128,12 +138,13 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         }
     }
 
+    //Se muestra un alertDialog con las categorías a elegir al caer en comodin
     public void mostrarComodin(){
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Elige una categoría");
 
-// add a list
+    // add a list
         String[] categorias = {"Base de datos", "Programación", "Programación Web", "Sistemas informáticos",
                 "Entornos de desarrollo", "Hardware"};
         builder.setItems(categorias, new DialogInterface.OnClickListener() {
@@ -150,8 +161,7 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
                 iniciarPregunta();
             }
         });
-
-// create and show the alert dialog
+        // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -225,11 +235,15 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
 //            System.out.println(partida.j2.resultadosJugador());
 
         }else { //Si no viene de quiz
+            if (nombreJ2.equalsIgnoreCase(""))
+                openDialog();
+            System.out.println("nombreJ2 = "+nombreJ2);
+
 
             Jugador j1 = new Jugador(Login.nick, imgQuesitosJ1);
             tvJ1.setText(j1.getNick());
 
-            Jugador j2 = new Jugador("Pepe", imgQuesitosJ2);
+            Jugador j2 = new Jugador(nombreJ2, imgQuesitosJ2);
             tvJ2.setText(j2.getNick());
 
             partida = new Partida(j1,j2); //Se instancia un objeto partida.
@@ -238,32 +252,35 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
             if(partida.empiezaPartida) {
                 mostrarTurnoAlEmpezar();
                 partida.empiezaPartida=false;
-            }
+            }System.out.println("j2.getNick() = "+j2.getNick());
         }
         mostrarTurno();
         textView.setText("El turno es de J"+partida.turno);
     }
 
+    //Metodo para mostrar al ganador al completar los 6 quesitos
     private void mostrarGanador() {
-
-
         String tituloAlert ="GANADOR: "+ganador+"!";
         String mensajeAlert=partida.j1.resultadosJugador()+"\n\n"+partida.j2.resultadosJugador();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensajeAlert)
-                .setTitle(tituloAlert);
+                .setTitle(tituloAlert)
+                .setCancelable(false);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(Ruleta.this, ModoDeJuego.class);
                 startActivity(intent);
+                finish();
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
+//-----------------------------------------------------------------------------------------------------------
+//--------------------------------- Giro y animación de la Ruleta -------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
     @Override
     public void onAnimationStart(Animation animation){
         this.blnButtonRotation=false;
@@ -302,15 +319,6 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
 
     }
 
-    private void iniciarPregunta() {
-        Intent i = new Intent(this, Quiz.class);
-        i.putExtra("categoria",resultadoCategoria); //Titulo de a categoría
-        i.putExtra("tablaCat" ,tablaCat); //Nombre de la tabla que consultaremos en la DB
-        i.putExtra("intentPractica",false);
-        i.putExtra("partida",partida);
-        startActivity(i);
-    }
-
     public void CalculatePoint(long degree){
         double initialPoint = 0;
         double endPoint=51.42857142857143;
@@ -330,7 +338,22 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         }while(resultadoCategoria == null);
         textView.setText(resultadoCategoria); //TextView prescindible, muestra categoría elegida.
     }
+//-----------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 
+    //Metodo para pasar al activity Quiz cuando laa ruleta cae en una categoría
+    private void iniciarPregunta() {
+        Intent i = new Intent(this, Quiz.class);
+        i.putExtra("categoria",resultadoCategoria); //Titulo de a categoría
+        i.putExtra("tablaCat" ,tablaCat); //Nombre de la tabla que consultaremos en la DB
+        i.putExtra("intentPractica",false);
+        i.putExtra("partida",partida);
+        startActivity(i);
+        finish();
+    }
+
+    //Botón para ir a la actividad anterior (Pide confirmación)
     public void btnAtras(View view) {
 
         String mensajeAlert="Seguro que quieres salir?";
@@ -338,11 +361,13 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(mensajeAlert)
-                .setTitle(tituloAlert);
+                .setTitle(tituloAlert)
+                .setCancelable(false);
         builder.setPositiveButton("Si, salir", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(Ruleta.this, ModoDeJuego.class);
                 startActivity(intent);
+                finish();
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -354,8 +379,31 @@ public class Ruleta extends AppCompatActivity implements Animation.AnimationList
         dialog.show();
     }
 
+    //Botón para trampear la victoria al Jugador 1
     public void btnGanar(View view) {
         for (int i =0; i<partida.j1.getQuesitos().length; i++)
         partida.j1.setQuesitos(i,true);
+    }
+
+    //Instanciamos el Jugador2NuevaPartidaDialog para obtener inicialmente el nick del player2
+    public void openDialog() {
+        Jugador2NuevaPartidaDialog jugador2NuevaPartidaDialog = new Jugador2NuevaPartidaDialog();
+        jugador2NuevaPartidaDialog.setCancelable(false);
+        jugador2NuevaPartidaDialog.show(getSupportFragmentManager(), "Jugador2NuevaPartidaDialog dialog");
+    }
+
+    //Configuramos como se tratan los datos recibidos (nombre j2) de la interfaz constituida en el dialog
+    @Override
+    public void applyTexts(String username) {
+        username = username.replace(" ","");
+        if (username.equalsIgnoreCase(""))
+            nombreJ2 = "Jugador 2";
+        else
+            nombreJ2 = username;
+
+        TextView tvJ2 = findViewById(R.id.tv_J2);
+        tvJ2.setText(nombreJ2);
+        partida.j2.setNick(nombreJ2);
+
     }
 }

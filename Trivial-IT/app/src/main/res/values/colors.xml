@@ -6,4 +6,7 @@
 
     <color name="colorRespuestaCorrecta">@drawable/p_correcta</color>
     <color name="colorRespuestaIncorrecta">@drawable/p_erronea</color>
+
+    <color name="colorNegro">#000000</color>
+    <color name="colorBlanco">#ffffff</color>
 </resources>

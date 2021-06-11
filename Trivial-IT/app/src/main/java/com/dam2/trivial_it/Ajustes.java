@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class Ajustes extends AppCompatActivity {
+public class Ajustes extends ActivityBase {
     Button btnPlayMusica, btnPlayEfecto, cerrar, btnJugar, btnReglas, btnAtras;
     static Boolean efectosEncendidos=true;
     static Boolean musicaFondoEncendida = true;
@@ -45,16 +45,19 @@ public class Ajustes extends AppCompatActivity {
             Intent intent=new Intent(this, ComoJugar.class);
             startActivity(intent);
             if (Ajustes.efectosEncendidos) mp.start();
+            finish();
         });
         btnAtras.setOnClickListener(v -> {
             Intent intent=new Intent(this, Principal.class);
             startActivity(intent);
             if (Ajustes.efectosEncendidos) mp.start();
+            finish();
         });
         btnReglas.setOnClickListener(v -> {
             Intent intent=new Intent(this, Reglas.class);
             startActivity(intent);
             if (Ajustes.efectosEncendidos) mp.start();
+            finish();
         });
 
         ////////////////Se indica al botón la imagen que debe tener según el estado (Encendida/apagada)
@@ -71,7 +74,7 @@ public class Ajustes extends AppCompatActivity {
         SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferences.edit();
         editor.putBoolean("musicaFondoEncendida", Ajustes.musicaFondoEncendida); //Guardamos el estado de la musica de fondo
-        editor.putBoolean("efectosEncendidos", Ajustes.musicaFondoEncendida); //Guardamos el estado de los efectos sonoros
+        editor.putBoolean("efectosEncendidos", Ajustes.efectosEncendidos); //Guardamos el estado de los efectos sonoros
         editor.commit();
     }
 

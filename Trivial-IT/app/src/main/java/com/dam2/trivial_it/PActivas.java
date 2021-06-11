@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PActivas extends AppCompatActivity {
+public class PActivas extends ActivityBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

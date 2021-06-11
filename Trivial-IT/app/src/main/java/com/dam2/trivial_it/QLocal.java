@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class QLocal extends AppCompatActivity {
+public class QLocal extends ActivityBase {
     MediaPlayer mp;
     Button atras;
     @Override
@@ -73,11 +73,13 @@ public class QLocal extends AppCompatActivity {
         i.putExtra("tablaCat",tablaCat);
 
         startActivity(i);
+        finish();
     }
 
     public void btn_Atras(View view) {
         Intent i = new Intent(this, ModoDeJuego.class);
         startActivity(i);
         mp.start();
+        finish();
     }
 }

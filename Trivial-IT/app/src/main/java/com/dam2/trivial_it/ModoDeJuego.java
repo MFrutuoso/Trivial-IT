@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ModoDeJuego extends AppCompatActivity {
+public class ModoDeJuego extends ActivityBase {
 
     MediaPlayer mp;
     @Override
@@ -26,17 +26,20 @@ public class ModoDeJuego extends AppCompatActivity {
         Intent intent = new Intent(this, Ruleta.class);
         startActivity(intent);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
 
     public void btnQLocal(View view) {
         Intent intent = new Intent(this, QLocal.class);
         startActivity(intent);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
 
     public void btn_Atras(View view) {
         Intent i = new Intent(this, Principal.class);
         startActivity(i);
         if (Ajustes.efectosEncendidos) mp.start();
+        finish();
     }
 }
