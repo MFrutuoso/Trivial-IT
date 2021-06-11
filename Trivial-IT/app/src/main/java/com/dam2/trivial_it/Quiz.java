@@ -2,43 +2,27 @@ package com.dam2.trivial_it;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Delayed;
 
 public class Quiz extends ActivityBase {
 
@@ -46,9 +30,7 @@ public class Quiz extends ActivityBase {
     TextView tvCategoria, tvPregunta, tvOpcion1, tvOpcion2, tvOpcion3, tvOpcion4, tvContador, tiempo;
     int contadorPregunta=0;
 
-//    CountDownTimer countDownTimer;
-//    private long timeMili=11000;
-//    public boolean timeRunning;
+    ContadorRegresivo contadorRegresivo = new ContadorRegresivo(10000,1000);
 
     RequestQueue requestQueue;
     String[][] qPractica = new String[5][7];
@@ -67,7 +49,6 @@ public class Quiz extends ActivityBase {
     boolean acierto=false; //variable para validar si se acierta una pregunta;
 	MediaPlayer error;
     MediaPlayer correcto;
-
     ImageButton btnSiguiente;
 
     @Override
@@ -111,21 +92,6 @@ public class Quiz extends ActivityBase {
 
         buscarDatos(url); //Llamamos al método de la consulta a la DB
     }
-
-    //TIEMPO
-//    public void startTimer(){
-//        countDownTimer = new CountDownTimer(timeMili, 1000){
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                tiempo.setText(String.valueOf((millisUntilFinished / 1000)));
-//            }
-//            @Override
-//            public void onFinish() {
-//
-//            }
-//        }.start();
-//        timeRunning=true;
-//    }
 
     //Método para buscar los datos en la DB
     public void buscarDatos(String URL){
@@ -188,6 +154,7 @@ public class Quiz extends ActivityBase {
         else{ //quizRuleta
             tvPregunta.setText(preguntaCompleta[1]);
             mostarOpcionesAleatorias();
+            contadorRegresivo.start();
         }
     }
 
@@ -278,6 +245,7 @@ public class Quiz extends ActivityBase {
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     respondido = true;
+                    contadorRegresivo.cancel();
                 }
                 break;
 
@@ -300,6 +268,7 @@ public class Quiz extends ActivityBase {
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     respondido = true;
+                    contadorRegresivo.cancel();
                 }
                 break;
 
@@ -322,6 +291,7 @@ public class Quiz extends ActivityBase {
                         else tvOpcion4.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     respondido = true;
+                    contadorRegresivo.cancel();
                 }
                 break;
 
@@ -344,6 +314,7 @@ public class Quiz extends ActivityBase {
                         else tvOpcion3.setBackgroundResource(R.color.colorRespuestaCorrecta);
                     }
                     respondido = true;
+                    contadorRegresivo.cancel();
                 }
                 break;
             }
@@ -453,4 +424,49 @@ public class Quiz extends ActivityBase {
         dialog.show();
     }
 
+
+    class ContadorRegresivo extends CountDownTimer{
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public ContadorRegresivo(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tvContador.setText(""+millisUntilFinished/1000);
+        }
+
+        @Override
+        public void onFinish() { //Cuando el contador llega a 0
+            if (respondido==false){ //Si aún no se ha respondido
+                respondido=true;
+                acierto=false;
+
+                ArrayList<TextView> respuestas = new ArrayList<TextView>();
+                respuestas.ensureCapacity(4);
+                respuestas.add(tvOpcion1);
+                respuestas.add(tvOpcion2);
+                respuestas.add(tvOpcion3);
+                respuestas.add(tvOpcion4);
+
+                //Marcamos los colores correspondientes en el quiz de acierto-fallo
+                for (int i=0; i<respuestas.size(); i++){
+                    if (respuestas.get(i).getText().toString().equalsIgnoreCase(respuestaCorrecta)){
+                        respuestas.get(i).setBackgroundResource(R.color.colorRespuestaCorrecta);
+                    }
+                    else respuestas.get(i).setBackgroundResource(R.color.colorRespuestaIncorrecta);
+                }
+                error.start(); //Suena musica de error
+                btnSiguiente.setEnabled(true); //Activamos el botón Siguiente
+                btnSiguiente.setImageDrawable(ContextCompat.getDrawable(Quiz.this, R.drawable.next)); //Mostramos aspecto activado
+            }
+        }
+    }
 }
