@@ -96,7 +96,7 @@ public class Login extends ActivityBase {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Login.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "No hay conexión a Internet.", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

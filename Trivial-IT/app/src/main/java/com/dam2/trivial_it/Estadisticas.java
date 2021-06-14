@@ -48,14 +48,10 @@ public class Estadisticas extends ActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estadisticas);
-
-        
-        
     }
     public void btnAtras(View view) {
         Intent intent=new Intent(this, Principal.class);
         startActivity(intent);
-        
         if (Ajustes.efectosEncendidos){
             MediaPlayer mp = MediaPlayer.create(this, R.raw.boton_sound);
             mp.start();
@@ -70,10 +66,8 @@ class EstadisticasPaseYJuegue{
     int partidasPerdidas;
     int totalPreguntasAcertadas;
     int totalPreguntasFalladas;
-
     public EstadisticasPaseYJuegue() {}
-
-    public EstadisticasPaseYJuegue(int partidasJugadas, int partidasGanadas, int partidasPerdidas, int totalPreguntasAcertadas, int totalPreguntasFalladas) {
+    public EstadisticasPaseYJuegue(int partidasJugadas, int partidasGanadas, int partidasPerdidas, int totalPreguntasAcertadas, int totalPreguntasFalladas){
         this.partidasJugadas = partidasJugadas;
         this.partidasGanadas = partidasGanadas;
         this.partidasPerdidas = partidasPerdidas;
@@ -101,5 +95,4 @@ class EstadisticasLocal{
         this.entornosDeDesarrollo = entornosDeDesarrollo;
         this.hardware = hardware;
     }
-
 }
